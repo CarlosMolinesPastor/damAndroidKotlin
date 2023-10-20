@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Datos Alumno</string>
+    <string name="semipresencial">Semipresencial</string>
+    <string name="presencial">Presencial</string>
+    <string name="nombre">Nombre:</string>
+    <string name="introduzca_el_nombre_del_alumno">Introduzca el nombre del alumno</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="textview">TextView</string>
+    <string name="obtener_datos">Obtener Datos</string>
+    <string name="asir">Asir</string>
+    <string name="fecha_nac">Fecha Nac</string>
+    <string name="dam">Dam</string>
+    <string name="daw">Daw</string>
+</resources>

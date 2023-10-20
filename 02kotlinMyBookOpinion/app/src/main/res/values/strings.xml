@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">MyBookOpinion</string>
+    <string name="book_name">Historia de dos ciudades</string>
+    <string name="introduzca_opinion">Introduzca su opinión</string>
+    <string name="hecho">Hecho</string>
+    <string name="book_text">Era el mejor de los tiempos, era el peor de los tiempos, la edad
+de la sabiduría, y también de la locura; la época de las creencias
+y de la incredulidad; la era de la luz y de las tinieblas;
+la primavera de la esperanza y el invierno de la desesperación.
+\n\nTodo lo poseíamos, pero no teníamos nada; caminábamos en
+derechura al cielo y nos extraviábamos por el camino opuesto.
+\n\nEn una palabra, aquella época era tan parecida a la actual,
+que nuestras más notables autoridades insisten en que, tanto en lo
+que se refiere al bien como al mal, sólo es aceptable la comparación
+en grado superlativo.
+\n\nEn el trono de Inglaterra había un rey de mandíbula muy desarrollada
+y una reina de cara corriente; en el trono de Francia había un rey
+también de gran quijada y una reina de hermoso rostro.
+\n\nEn ambos países era más claro que el cristal para los señores
+del Estado, que las cosas, en general, estaban aseguradas para siempre.
+Era el año de Nuestro Señor, mil setecientos setenta y cinco.
+\n\nEn período tan favorecido como aquél habían sido concedidas
+a Inglaterra las revelaciones espirituales.
+\n\nRecientemente la señora Southcott había cumplido el
+vigésimo quinto aniversario de su aparición sublime
+en el mundo, que fue anunciada con la antelación debida
+por un guardia de corps, pronosticando que se hacían
+preparativos para tragarse a Londres y a Westminster.</string>
+    <string name="yellow_star" />
+    <string name="textview_visib">TextView</string>
+
+</resources>
