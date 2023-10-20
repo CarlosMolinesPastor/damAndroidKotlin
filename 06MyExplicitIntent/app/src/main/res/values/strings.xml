@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyExplicitIntent</string>
+    <string name="introduzca_titulo">Introduzca Titulo</string> />
+    <string name="introduzca_autor"> Introduzca Autor </string> />
+    <string name="enviar"> Enviar Datos </string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="introduzca_su_opinion">Introduzca su opninión</string>
+    />
+</resources>
