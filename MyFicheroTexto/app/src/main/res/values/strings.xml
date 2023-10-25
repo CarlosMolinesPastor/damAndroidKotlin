@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MyFicheroTexto</string>
+
+    <string name="error_textos">"Hay campos sin datos introducidos"</string>
+
+    <string name="filename">articulos.txt</string>
+
+    <string name="no_existe_fichero">No existe el fichero</string>
+    <string name="articulo">Artículo</string>
+    <string name="codigo">Código</string>
+    <string name="precio">Precio</string>
+    <string name="introducir">Introducir</string>
+    <string name="mostrat_todos">Mostrar Todos los Artículos</string>
+
+</resources>
