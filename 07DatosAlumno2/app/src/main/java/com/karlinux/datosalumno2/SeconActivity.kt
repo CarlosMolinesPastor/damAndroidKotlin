@@ -19,7 +19,7 @@ class SeconActivity : AppCompatActivity() {
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //setContentView(R.layout.activity_main)
-        //Recogemos lo enviado desde el MainActivity, en este caso el nombre
+        //Recogemos lo enviado desde el MainActivity, en este caso el nombre y lo mostramos
         val myNombre = intent.getStringExtra(MainActivity.EXTRA_NOMBRE)
         binding.txtNombre.text = myNombre.toString()
         //Realizamos en listener en el boton aceptar y cancelar
@@ -27,6 +27,7 @@ class SeconActivity : AppCompatActivity() {
             //Llamamos a la funcion mostrardatos
             mostrardatos(it)
         }
+        //Se pulsa cancelar devolvemos que se ha pulsado casncelar
         binding.btnCancelar.setOnClickListener(){
             Log.d(MainActivity.TAG_APP, "Se ha pulsado Cancelar")
             setResult(Activity.RESULT_CANCELED)
