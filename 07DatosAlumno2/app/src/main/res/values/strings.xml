@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Datos Alumno</string>
+    <string name="semipresencial">Semipresencial</string>
+    <string name="presencial">Presencial</string>
+    <string name="nombre">Nombre del alumno:</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="textview">TextView</string>
+    <string name="obtener_datos">Obtener Datos</string>
+    <string name="asir">Asir</string>
+    <string name="fecha_nac">Fecha Nac:</string>
+    <string name="dam">Dam</string>
+    <string name="daw">Daw</string>
+    <string name="Idname">Nombre:</string>
+    <string name="btnEdadGrupo">Obtener Edad y Grupo</string>
+    <string name="btnGuardarHisto">Gurdar en Histórico</string>
+    <string name="btnVerHist">Ver Histórico</string>
+    <string name="IdFecha">Fecha Nac:</string>
+    <string name="Interrogante">\?</string>
+    <string name="IdModalidad">Modalidad:</string>
+    <string name="IdCiclo">Ciclo:</string>
+    <string name="btnLeer">Leer Datos</string>
+</resources>
