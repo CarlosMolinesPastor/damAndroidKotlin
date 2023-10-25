@@ -73,10 +73,11 @@
         android:id="@+id/IfFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="106dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:text="@string/IdFecha"
         android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/txtFecha"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTxtNombre" />
 
@@ -84,10 +85,12 @@
         android:id="@+id/txtFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
         android:hint="@string/Interrogante"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/IfFecha"
-        tools:layout_editor_absoluteX="231dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/IfFecha" />
 
     <TextView
         android:id="@+id/IdtxtModalidad"
@@ -95,8 +98,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="21dp"
         android:text="@string/IdModalidad"
         android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/txtModalidad"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/IfFecha" />
 
@@ -104,10 +109,11 @@
         android:id="@+id/txtModalidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:hint="@string/Interrogante"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/IdtxtModalidad"
-        tools:layout_editor_absoluteX="153dp" />
+        app:layout_constraintStart_toEndOf="@+id/IdtxtModalidad" />
 
     <TextView
         android:id="@+id/IdTxtCiclo"
@@ -116,16 +122,19 @@
         android:text="@string/IdCiclo"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtModalidad"
-        tools:layout_editor_absoluteX="205dp" />
+        app:layout_constraintEnd_toStartOf="@+id/txtCiclo"
+        app:layout_constraintStart_toEndOf="@+id/txtModalidad" />
 
     <TextView
         android:id="@+id/txtCiclo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:hint="@string/Interrogante"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/IdTxtCiclo"
-        tools:layout_editor_absoluteX="270dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/IdTxtCiclo" />
 
     <Button
         android:id="@+id/btnLeer"
@@ -149,6 +158,7 @@
         android:layout_marginBottom="8dp"
         android:background="#C8C8C8"
         android:gravity="center_horizontal|center_vertical"
+        android:textSize="60sp"
         app:layout_constraintBottom_toTopOf="@+id/btnHistoricoSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
