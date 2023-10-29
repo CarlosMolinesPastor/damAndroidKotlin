@@ -21,4 +21,6 @@
     <string name="IdModalidad">Modalidad:</string>
     <string name="IdCiclo">Ciclo:</string>
     <string name="btnLeer">Leer Datos</string>
+    <string name="filename">Archivo</string>
+    <string name="no_existe_fichero">no_existe_fichero</string>
 </resources>
