@@ -85,12 +85,14 @@
         android:id="@+id/txtFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/Interrogante"
         android:textSize="20sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/IfFecha"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/IfFecha" />
+        app:layout_constraintStart_toEndOf="@+id/IfFecha"
+        app:layout_constraintTop_toBottomOf="@+id/editTxtNombre" />
 
     <TextView
         android:id="@+id/IdtxtModalidad"
@@ -109,7 +111,7 @@
         android:id="@+id/txtModalidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:hint="@string/Interrogante"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/IdtxtModalidad"
@@ -119,6 +121,7 @@
         android:id="@+id/IdTxtCiclo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="@string/IdCiclo"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtModalidad"
@@ -129,7 +132,7 @@
         android:id="@+id/txtCiclo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="32dp"
         android:hint="@string/Interrogante"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/IdTxtCiclo"

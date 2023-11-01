@@ -3,7 +3,6 @@ package com.karlinux.datosalumno2
 //Carlos Molines Pastor (karlinux)
 // 2º DAM Semipresencial
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -13,13 +12,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import com.karlinux.datosalumno2.databinding.ActivityMainBinding
-import java.io.BufferedReader
 import java.io.IOException
-import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding;
@@ -38,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         const val EXTRA_CICLO = "myCiclo"
         const val EXTRA_GRUPOCLASE = "myGrupoClase"
         const val EXTRA_EDAD = "myEdad"
+
+        //Pasamos la lista al recicler
+        const val EXTRA_LISTA = "myLista"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,10 +55,12 @@ class MainActivity : AppCompatActivity() {
         }
         //Por ultimo creamos un listener para leer los datos
         binding.btnHistoricoView.setOnClickListener() {
-            leerFichero()
+            lanzarTerceraActividad(it)
         }
 
     }
+
+
 
     //Creamos la funcion de lanzar la segunda actividad
     private fun lanzarSegundaActividad(view: View) {
@@ -129,9 +129,8 @@ class MainActivity : AppCompatActivity() {
         } else {
             //Si no hay campos vacios, llamamos a la funcion que escribe en el fichero
             //pero antes hay que declarar variable donde se guardan los datos para escribilos
-            var textoFichero: String
-            textoFichero =
-                binding.txtFecha.text.toString() + ";" + binding.editTxtNombre.text.toString() + ";" +
+            val textoFichero: String
+            textoFichero = binding.txtFecha.text.toString() + ";" + binding.editTxtNombre.text.toString() + ";" +
                         binding.txtModalidad.text.toString() + ";" + binding.txtCiclo.text.toString()
             escribirFichero(textoFichero)
         }
@@ -160,43 +159,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Esta funcion de mometno vemos el historico aunque despues habra que pasarlo a un view recicler
-    // y para ello habra que crear un nuevo activity y un nuevo layout
-    private fun leerFichero() {
-
-        binding.txtResult.text = ""
-        // Se comprueba si existe el fichero.
-        if (fileList().contains(getString(R.string.filename))) {
-            try {
-                val entrada = InputStreamReader(openFileInput(getString(R.string.filename)))
-                val br = BufferedReader(entrada)
-                // Leemos la primera línea
-                var linea = br.readLine()
-                //Mientras que la linea no sea nula o vacia
-                while (!linea.isNullOrEmpty()) {
-                    // Obtenemos los datos separandolo por el ;
-                    val datos: List<String> = linea.split(";")
-                    val mostrar: String
-                    // Montamos el texto a mostrar
-                    // y lo añadimos al textView
-                    mostrar = "Fecha: " + datos[0] +
-                            " Nombre y apellidos: " + datos[1] +
-                            " Modalidad: " + datos[2] +
-                            " Ciclo: " + datos[3] + "\n"
-                    binding.txtResult.append(mostrar + "\n")
-                    // Leemos la siguiente línea del fichero
-                    linea = br.readLine()
-                }
-                br.close()
-                entrada.close()
-            } catch (e: IOException) {
-                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-            }
-        } else {
-            Toast.makeText(this,
-                R.string.no_existe_fichero,
-                Toast.LENGTH_LONG).show()
+    private fun lanzarTerceraActividad(view: View) {
+        val myIntent2 = Intent(this, ThirdActivity::class.java).apply {
         }
+        startActivity(myIntent2)
     }
 
     fun ocultarTeclado(view: View) {

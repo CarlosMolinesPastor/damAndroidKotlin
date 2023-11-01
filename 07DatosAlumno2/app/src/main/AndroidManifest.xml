@@ -13,10 +13,15 @@
         android:theme="@style/Theme.DatosAlumno"
         tools:targetApi="31">
         <activity
+            android:name=".ThirdActivity"
+            android:exported="false"
+            android:label="Third Activity"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".SeconActivity"
+            android:exported="false"
             android:label="Second Activity"
-            android:parentActivityName=".MainActivity"
-            android:exported="false" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -26,6 +31,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -23,4 +23,12 @@
     <string name="btnLeer">Leer Datos</string>
     <string name="filename">Archivo</string>
     <string name="no_existe_fichero">no_existe_fichero</string>
+    <string name="mes">mes</string>
+    <string name="dia">dia</string>
+    <string name="anyo">anyo</string>
+    <string name="ciclo">ciclo</string>
+    <string name="modalidad">modalidad</string>
+    <string name="idnombre">IdNombre</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
 </resources>
