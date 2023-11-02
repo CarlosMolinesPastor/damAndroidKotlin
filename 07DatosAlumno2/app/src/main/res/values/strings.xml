@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Datos Alumno</string>
+    <string name="app_name">Datos Alumno2</string>
     <string name="semipresencial">Semipresencial</string>
     <string name="presencial">Presencial</string>
     <string name="nombre">Nombre del alumno:</string>
