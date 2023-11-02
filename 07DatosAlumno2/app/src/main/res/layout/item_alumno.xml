@@ -12,7 +12,7 @@
     app:cardElevation="4dp">
 
     <LinearLayout
-        android:layout_width="374dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:baselineAligned="false"
@@ -28,7 +28,7 @@
 
             <TextView
                 android:id="@+id/labelMes"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto_medium"
@@ -38,14 +38,14 @@
 
             <TextView
                 android:id="@+id/labeDia"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/dia"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/labelAnyo"
@@ -62,7 +62,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center|center_horizontal|center_vertical"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -70,10 +70,10 @@
                 android:id="@+id/labelNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:layout_gravity="center|center_horizontal"
                 android:fontFamily="@font/roboto_medium"
                 android:text="@string/idnombre"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/labelModalidad"
@@ -82,7 +82,7 @@
                 android:layout_gravity="center|center_horizontal|center_vertical"
                 android:fontFamily="@font/roboto_light"
                 android:text="@string/modalidad"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -101,7 +101,7 @@
                 android:fontFamily="@font/roboto_medium"
                 android:padding="5dp"
                 android:text="@string/ciclo"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>

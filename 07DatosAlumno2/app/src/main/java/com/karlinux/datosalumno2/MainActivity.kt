@@ -33,17 +33,17 @@ class MainActivity : AppCompatActivity() {
         const val EXTRA_CICLO = "myCiclo"
         const val EXTRA_GRUPOCLASE = "myGrupoClase"
         const val EXTRA_EDAD = "myEdad"
-
-        //Pasamos la lista al recicler
-        const val EXTRA_LISTA = "myLista"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //setContentView(R.layout.activity_main)
 
+        binding.btnHistoricoSave.isEnabled = false
+
+
+        //Listener al boton de leer para lanzar la segunda actividad, vaciando el txt Result
         binding.btnLeer.setOnClickListener() {
             binding.txtResult.text = ""
             lanzarSegundaActividad(it)
@@ -60,16 +60,18 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
     //Creamos la funcion de lanzar la segunda actividad
     private fun lanzarSegundaActividad(view: View) {
         // Primero tenemos que ver que en el edit text haya escrito algo
         // declaramos el intent importante para despues lanzar el getResult porque se lo pasamos
+        // como parametro
+        //Constante nombre
         val myNombre = binding.editTxtNombre.text.toString()
+        //Crwamos el intent y le pasamos el nombre
         val myIntent = Intent(this, SeconActivity::class.java).apply {
             putExtra(EXTRA_NOMBRE, myNombre)
         }
+        //Si el nombre esta vacio, mostramos un toast, si no lanzamos el intent con el getResult
         if (myNombre == "") {
             Toast.makeText(this, "No hay nombre introducido", Toast.LENGTH_SHORT).show()
         } else {
@@ -79,6 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Declaramos el getResult, que es el que recoge los datos de la segunda actividad
     private val getResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             // Vamos a la Segunda Actividad a ver que devolvemos y volvemos aqui
@@ -89,6 +92,8 @@ class MainActivity : AppCompatActivity() {
                 val myCiclo = it.data?.getStringExtra(EXTRA_CICLO)
                 val myGrupoClase = it.data?.getStringExtra(EXTRA_GRUPOCLASE)
                 val myEdad = it.data?.getStringExtra(EXTRA_EDAD)
+
+                binding.btnHistoricoSave.isEnabled = false
 
                 // llenamos los campos
                 binding.txtFecha.text = myFechaNac
@@ -102,7 +107,7 @@ class MainActivity : AppCompatActivity() {
                 binding.btnEdadGrupo.isEnabled = true
                 //Recogemos el foco en el edad grupo
                 binding.btnEdadGrupo.requestFocus()
-                // Añadimos un listener al boton edad grupo
+                // Añadimos un listener al boton edad grupo, ocultamos el teclado y mostramos
                 binding.btnEdadGrupo.setOnClickListener() {
                     ocultarTeclado(it)
                     binding.txtResult.text = "Edad: $myEdad\n $myGrupoClase"
@@ -118,24 +123,41 @@ class MainActivity : AppCompatActivity() {
 
     //Ahora vamos a por GUARDAR EN HISTORICO, para ello lo primero es crear un listener en el boton
     // y luego crear la funcion que guarde en el historico, esta realmente se compone de
-    // dos funciones la primera para introducir los datos y la segunda para escibirlos en el fichero
+    // dos funciones la primera para introducir los datos (que es la que llamamos desde el boton
+    // y la segunda para escibirlos en el fichero
     private fun introducirDatos() {
         //Aqui aunque no sea necesario, el indicarle que no continue en caso que haya algun campo
-        // vacio, lo hacems, pues podriamos tener problemas con el fichero al poder borra el nombre
+        // vacio, lo hacems, pues podriamos tener problemas con el fichero al poder borrar el nombre
         if (binding.txtFecha.text.toString() == "" || binding.txtModalidad.text.toString() == "" ||
             binding.txtCiclo.text.toString() == "" || binding.editTxtNombre.text.toString() == ""
         ) {
             Toast.makeText(this, "No hay datos que guardar", Toast.LENGTH_SHORT).show()
         } else {
-            //Si no hay campos vacios, llamamos a la funcion que escribe en el fichero
-            //pero antes hay que declarar variable donde se guardan los datos para escribilos
+
+            // Primero para pasar los datos de la fecha por separado dia, mes y año, cortando el string por "/"
+            // Y guardandolo en variables dia mes y año
+            val datosFecha :List<String> = binding.txtFecha.text.toString().split("/")
+            val dia = datosFecha[0]
+            // El mes le pasamos la funcion asignarMes que nos devuelve el nombre del mes
+            val mes = asignarMes(datosFecha[1].toInt())
+            val ano = datosFecha[2]
+
+            //Ahora vamos a por el grupo clase, que lo vamos a coger del txtResult, y recogemos lo
+            // dividimos por el salto de linea y cogemos las dos ultimas lineas y las guardamos en
+            // una variable
+            val result = binding.txtResult.text.toString().split("\n")
+            val grupoClase = result[1] + result[2]
+            //Por ultimo creamos una variable que nos guarde el texto que vamos a escribir en el fichero
             val textoFichero: String
-            textoFichero = binding.txtFecha.text.toString() + ";" + binding.editTxtNombre.text.toString() + ";" +
-                        binding.txtModalidad.text.toString() + ";" + binding.txtCiclo.text.toString()
+            textoFichero = dia + ";" + mes + ";" + ano + ";" + binding.editTxtNombre.text.toString() + ";" +
+                        binding.txtModalidad.text.toString() + ";" +
+                        binding.txtCiclo.text.toString()+ ";" + grupoClase.toString()
+            //Llamamos a la funcion escribir fichero y le pasamos el texto que hemos creado
             escribirFichero(textoFichero)
         }
     }
 
+    //Funcion para escribir en el fichero
     private fun escribirFichero(textoFichero: String) {
         //Ahora lo que vamos a hacer es escribir los datos en un fichero de texto
         // Le pasamos un try por si hay algun problema
@@ -148,6 +170,7 @@ class MainActivity : AppCompatActivity() {
             // Se confirma la escritura.
             salida.flush()
             salida.close()
+            //Mostramos un toast y escribimos en el logcat
             Toast.makeText(this, "Escritura Correcta", Toast.LENGTH_SHORT).show()
             Log.d("Archivo", "Fichero guardado correctamente")
             }
@@ -159,12 +182,34 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Funcion para lanzar la Tercera Actividad creando un intent y pasandoselo a la ThirdActivity
     private fun lanzarTerceraActividad(view: View) {
         val myIntent2 = Intent(this, ThirdActivity::class.java).apply {
         }
         startActivity(myIntent2)
     }
 
+    //Funcion para asignar el nombre del mes al mes mediante un when (switch
+    private fun asignarMes(mes: Int): String {
+        var mesString: String = ""
+        when (mes) {
+            1 -> mesString = "Enero"
+            2 -> mesString = "Febrero"
+            3 -> mesString = "Marzo"
+            4 -> mesString = "Abril"
+            5 -> mesString = "Mayo"
+            6 -> mesString = "Junio"
+            7 -> mesString = "Julio"
+            8 -> mesString = "Agosto"
+            9 -> mesString = "Septiembre"
+            10 -> mesString = "Octubre"
+            11 -> mesString = "Noviembre"
+            12 -> mesString = "Diciembre"
+        }
+        return mesString
+    }
+
+    //Funcion para ocultar el teclado
     fun ocultarTeclado(view: View) {
         val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)

@@ -18,16 +18,19 @@ class ThirdActivity : AppCompatActivity() {
         binding = ActivityThirdBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Llamamos a la funcion que nos muestra el recycler view
         setUpRecyclerView()
 
     }
+    //Funcion para leer el fichero y mostrarlo en el recycler view
     private fun setUpRecyclerView() {
         // Esta opción a TRUE significa que el RV tendrá
         // hijos del mismo tamaño, optimiza su creación.
         binding.myRVDatos.setHasFixedSize(true)
         // Se indica el contexto para RV en forma de lista.
         binding.myRVDatos.layoutManager = LinearLayoutManager(this)
-        // Se genera el adapter. Con la lista que devuelve al leer el fichero.
+        // Se genera el adapter. Con la lista que devuelve al leer el fichero con la funcion
+        // leerFichero y el contexto
         myAdapter = DatosAdapter(leerFichero(), this)
 
         // Se asigna el adapter al RV.
@@ -37,8 +40,8 @@ class ThirdActivity : AppCompatActivity() {
 
     private fun leerFichero(): MutableList<Datos> {
         //Creamos una lista de datos, para despues cuando nos pongamos linea por linea en
-        // el bucle del while vayamos añadiendo y posteriomente la devolvemos para pasarla a la
-        // tercera actividad
+        // el bucle del while vayamos añadiendo y posteriomente la devolvemos para pasarla
+        // al adapter
         val listaDatos : MutableList<Datos> = arrayListOf()
         // Se comprueba si existe el fichero.
         if (fileList().contains(getString(R.string.filename))) {
@@ -52,7 +55,7 @@ class ThirdActivity : AppCompatActivity() {
                     // Obtenemos los datos separandolo por el ;
                     val datos: List<String> = linea.split(";")
                     // Creamos un objeto de la clase Datos
-                    listaDatos.add(Datos(datos[0],datos[1],datos[2],datos[3]))
+                    listaDatos.add(Datos(datos[0],datos[1],datos[2],datos[3],datos[4],datos[5],datos[6]))
                     // Leemos la siguiente línea del fichero
                     linea = br.readLine()
                 }
@@ -66,6 +69,7 @@ class ThirdActivity : AppCompatActivity() {
                 R.string.no_existe_fichero,
                 Toast.LENGTH_LONG).show()
         }
+        //Devolvemos la lista de datos
         return listaDatos
     }
 }

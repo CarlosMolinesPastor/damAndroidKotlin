@@ -13,21 +13,23 @@ import java.util.Calendar
 
 class SeconActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySecondBinding;
-    //Trabajamoscon binding previa declaracion en gradleapp
+    //Trabajamosc on binding previa declaracion en gradleapp
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //setContentView(R.layout.activity_main)
+
         //Recogemos lo enviado desde el MainActivity, en este caso el nombre y lo mostramos
         val myNombre = intent.getStringExtra(MainActivity.EXTRA_NOMBRE)
         binding.txtNombre.text = myNombre.toString()
+
         //Realizamos en listener en el boton aceptar y cancelar
         binding.btnAceptar.setOnClickListener(){
             //Llamamos a la funcion mostrardatos
             mostrardatos(it)
         }
-        //Se pulsa cancelar devolvemos que se ha pulsado casncelar
+        //Se pulsa cancelar devolvemos que se ha pulsado casncelar con el LogCat y finalizamos
+        // (Importante)
         binding.btnCancelar.setOnClickListener(){
             Log.d(MainActivity.TAG_APP, "Se ha pulsado Cancelar")
             setResult(Activity.RESULT_CANCELED)
@@ -36,7 +38,7 @@ class SeconActivity : AppCompatActivity() {
     }
 
     //Funciones heredadas del anterior ejercicio con la salvedad que ahora  trabajamos con
-    // con un txtNOmbre que nos viene en intent desde el MAinActivity
+    // con un txtNombre que nos viene en intent desde el MAinActivity
     //funcion para calcular el ano bisiesto y devuelve bool true or false
     private fun bisiesto(ano: Int): Boolean {
         var esBisiesto: Boolean = false
@@ -112,7 +114,7 @@ class SeconActivity : AppCompatActivity() {
         val rbAsir = binding.rbAsir
         val rbDam = binding.rbDam
         val texto : String
-        var clase :Int = 0 // clase y grupo las inicializamos
+        var clase = 0 // clase y grupo las inicializamos
         var grupo :String = ""
         val clases : Array<Int> = arrayOf(201,202,203,204,205,206)
         val grupos : Array<String> = arrayOf("A","B","C","D","E","F")
@@ -164,14 +166,14 @@ class SeconActivity : AppCompatActivity() {
             return "Daw"
     }
 
-    //Funcion mostrardatos, le pasamos la vista, y comprobamos que los campos no esten
+    // Funcion mostrardatos -- Importante -- , le pasamos la vista, y comprobamos que los campos no esten
     // vacios, aqui tuve un problema con el paso de edit text a int, ya que no me dejaba
     // me daba error en el momento que lo hacia desde la variable, por ello que primero
     // lo declare como string y despues en los casos que debian de pasar los enteros hacia
     // la transformacion directamente en el llamammiento a la funcion
     private fun mostrardatos(view: View) {
         //Contstantes y variables
-        val dia: String = binding.txtDay.text.toString()
+        val dia :String = binding.txtDay.text.toString()
         val mes :String = binding.txtMonth.text.toString()
         val ano :String = binding.txtYear.text.toString()
         //Declaramos la fecha para almacenarla como string
@@ -179,11 +181,9 @@ class SeconActivity : AppCompatActivity() {
         //Declaramos Grupo clase para almacenarlo
         val grupoClase : String = asignargrupoclase()
         val texto :String
-        var edad :Int = 0
-        val ciclo :String = ciclo()
-        val modalidad : String = modalidad()
+        val edad :Int
 
-        //Comprobamos que los campos no esten vacios (primero en todas ocultamos el teclado)
+        // Primero comprobamos que los campos no esten vacios (primero en todas ocultamos el teclado)
         if ( binding.txtDay.text.isEmpty() || binding.txtMonth.text.isEmpty() ||
             binding.txtYear.text.isEmpty() ){
             ocultarTeclado(view)
@@ -199,7 +199,9 @@ class SeconActivity : AppCompatActivity() {
         //Si la fecha es correcta y todo OK pasamos a MainActivity
         else {
             ocultarTeclado(view)
+            //Calculamos la edad
             edad = calcularedad(dia.toInt(),mes.toInt(),ano.toInt())
+            //Creamos el intent para pasar los datos a MainActivity
             val intentResult : Intent = Intent().apply {
                 putExtra(MainActivity.EXTRA_DATE,fechaNac)
                 putExtra(MainActivity.EXTRA_EDAD,edad.toString())
@@ -207,6 +209,7 @@ class SeconActivity : AppCompatActivity() {
                 putExtra(MainActivity.EXTRA_CICLO, ciclo())
                 putExtra(MainActivity.EXTRA_MODALIDAD,modalidad())
             }
+            //Mostramos en el LogCat los datos que pasamos
             Log.d(MainActivity.TAG_APP, "Pulsado boton de aceptar")
             setResult(Activity.RESULT_OK, intentResult)
             //Finalizamos el secondActivity (Importante)
