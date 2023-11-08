@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Datos Alumno3</string>
+    <string name="semipresencial">Semipresencial</string>
+    <string name="presencial">Presencial</string>
+    <string name="nombre">Nombre del alumno:</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="textview">TextView</string>
+    <string name="obtener_datos">Obtener Datos</string>
+    <string name="asir">Asir</string>
+    <string name="fecha_nac">Fecha Nac:</string>
+    <string name="dam">Dam</string>
+    <string name="daw">Daw</string>
+    <string name="Idname">Nombre:</string>
+    <string name="btnEdadGrupo">Obtener Edad y Grupo</string>
+    <string name="btnGuardarHisto">Gurdar en Histórico</string>
+    <string name="btnVerHist">Ver Histórico</string>
+    <string name="IdFecha">Fecha Nac:</string>
+    <string name="Interrogante">\?</string>
+    <string name="IdModalidad">Modalidad:</string>
+    <string name="IdCiclo">Ciclo:</string>
+    <string name="btnLeer">Leer Datos</string>
+    <string name="filename">Archivo</string>
+    <string name="no_existe_fichero">no_existe_fichero</string>
+    <string name="mes">mes</string>
+    <string name="dia">dia</string>
+    <string name="anyo">anyo</string>
+    <string name="ciclo">ciclo</string>
+    <string name="modalidad">modalidad</string>
+    <string name="idnombre">IdNombre</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

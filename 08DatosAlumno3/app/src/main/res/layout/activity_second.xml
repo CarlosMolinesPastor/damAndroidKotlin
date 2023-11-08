@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/idNombre"
+        style="@style/sticky"
+        android:layout_marginTop="16dp"
+        android:text="@string/nombre"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/IdFechaNac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/fecha_nac"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNombre"
+        tools:ignore="VisualLintOverlap" />
+
+    <EditText
+        android:id="@+id/txtDay"
+        android:layout_width="67dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/day"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textColorHint="#8D6E63"
+        app:layout_constraintBaseline_toBaselineOf="@+id/IdFechaNac"
+        app:layout_constraintStart_toEndOf="@+id/IdFechaNac" />
+
+    <EditText
+        android:id="@+id/txtMonth"
+        android:layout_width="71dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/month"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textColorHint="#8D6E63"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtDay"
+        app:layout_constraintStart_toEndOf="@+id/txtDay" />
+
+    <EditText
+        android:id="@+id/txtYear"
+        android:layout_width="67dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/year"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textColorHint="#8D6E63"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtMonth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/txtMonth" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:baselineAligned="false"
+        android:foregroundGravity="fill_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/IdFechaNac">
+
+
+        <RadioButton
+            android:id="@+id/rbSemi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/semipresencial"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/rbPresencial"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="72dp" />
+
+        <RadioButton
+            android:id="@+id/rbPresencial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/presencial"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/rbSemi"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:foregroundGravity="fill_horizontal"
+        android:orientation="horizontal"
+        android:textAlignment="gravity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        tools:ignore="UnknownId">
+
+        <RadioButton
+            android:id="@+id/rbDam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:checked="true"
+            android:text="@string/dam"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/rbAsir"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RadioButton
+            android:id="@+id/rbAsir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:text="@string/asir"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/rbDam"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioButton
+            android:id="@+id/rbDaw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@string/daw"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/rbAsir"
+            app:layout_constraintStart_toEndOf="@+id/rbAsir" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/txtNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idNombre" />
+
+    <Button
+        android:id="@+id/btnAceptar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/aceptar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+
+    <Button
+        android:id="@+id/btnCancelar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/cancelar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAceptar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
