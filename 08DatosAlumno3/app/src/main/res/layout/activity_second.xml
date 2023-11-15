@@ -15,66 +15,25 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <TextView
         android:id="@+id/IdFechaNac"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:text="@string/fecha_nac"
-        android:textSize="14sp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/cyan"
+        android:enabled="true"
+        android:text="@string/fecha_na"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNombre"
         tools:ignore="VisualLintOverlap" />
-
-    <EditText
-        android:id="@+id/txtDay"
-        android:layout_width="67dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="12dp"
-        android:layout_weight="1"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/day"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textColorHint="#8D6E63"
-        app:layout_constraintBaseline_toBaselineOf="@+id/IdFechaNac"
-        app:layout_constraintStart_toEndOf="@+id/IdFechaNac" />
-
-    <EditText
-        android:id="@+id/txtMonth"
-        android:layout_width="71dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="20dp"
-        android:layout_weight="1"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/month"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textColorHint="#8D6E63"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txtDay"
-        app:layout_constraintStart_toEndOf="@+id/txtDay" />
-
-    <EditText
-        android:id="@+id/txtYear"
-        android:layout_width="67dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_weight="1"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/year"
-        android:inputType="number"
-        android:textAlignment="center"
-        android:textColorHint="#8D6E63"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txtMonth"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/txtMonth" />
 
     <RadioGroup
         android:id="@+id/radioGroup"

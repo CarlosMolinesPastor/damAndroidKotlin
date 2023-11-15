@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal|center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="0.7"
             android:orientation="vertical">
 
             <TextView
@@ -34,14 +34,16 @@
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="@string/mes" />
+                android:singleLine="true"
+                android:text="@string/mes"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/labeDia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/roboto_bold"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="@string/dia"
@@ -55,32 +57,37 @@
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:padding="5dp"
+                android:singleLine="true"
                 android:text="@string/anyo" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center|center_horizontal|center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="5"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/labelNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|center_horizontal"
-                android:fontFamily="@font/roboto_medium"
+                android:layout_gravity="center|center_vertical"
+                android:fontFamily="@font/roboto_bold"
+                android:singleLine="false"
                 android:text="@string/idnombre"
-                android:textSize="18sp" />
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:autoSizeTextType="uniform" />
 
             <TextView
                 android:id="@+id/labelModalidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|center_horizontal|center_vertical"
-                android:fontFamily="@font/roboto_light"
+                android:layout_gravity="center|center_vertical"
+                android:fontFamily="@font/roboto_medium"
                 android:text="@string/modalidad"
                 android:textSize="14sp" />
 
@@ -88,9 +95,11 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center|center_horizontal"
             android:layout_weight="1"
+            android:gravity="center"
+            android:minHeight="333dp"
             android:orientation="vertical">
 
             <TextView
@@ -98,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|center_vertical"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/roboto_bold"
                 android:padding="5dp"
                 android:text="@string/ciclo"
                 android:textSize="18sp" />

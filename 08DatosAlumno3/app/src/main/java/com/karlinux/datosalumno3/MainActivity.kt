@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         // Se crea el adapter.
         val adapter = ViewPager2Adapter(supportFragmentManager, lifecycle)
         // Se añaden los fragments y los títulos de pestañas.
+        // Es lo unico que se ha tenido que modificar del codigo original
         adapter.addFragment(FragmentPrincipal(), "Datos")
         adapter.addFragment(FragmentHistorico(),"Historico")
         // Se asocia el adpater al viewPager2

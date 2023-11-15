@@ -1,7 +1,10 @@
 package com.karlinux.datosalumno3
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +15,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.karlinux.datosalumno3.databinding.FragmentPrincipalBinding
 import java.io.IOException
 import java.io.OutputStreamWriter
@@ -45,7 +49,9 @@ class FragmentPrincipal : Fragment() {
 
         //Vamos a por el boton de guardar en historico
         binding.btnHistoricoSave.setOnClickListener() {
-            introducirDatos()
+            //Ahora lo que hacemos es llamar directamente a la funcion que crea el dialogo en
+            // lugar a introducir datos ya que a esta la llamamos desde la propia funcion
+            myAlertDialog()
         }
         return binding.root
     }
@@ -132,8 +138,9 @@ class FragmentPrincipal : Fragment() {
             // El mes le pasamos la funcion asignarMes que nos devuelve el nombre del mes
             val mes = asignarMes(datosFecha[1].toInt())
             val ano = datosFecha[2]
-
-            //Ahora vamos a por el grupo clase, que lo vamos a coger del txtResult, y recogemos lo
+            //Creamos una variable para guardar la modalidad entre parentesis
+            val modalidad = "(" + binding.txtModalidad.text.toString() + ")"
+            //Ahora vamos a por el grupo clase, que lo vamos a coger del txtResult, y lo recogemos en un aray lo
             // dividimos por el salto de linea y cogemos las dos ultimas lineas y las guardamos en
             // una variable
             val result = binding.txtResult.text.toString().split("\n")
@@ -141,8 +148,8 @@ class FragmentPrincipal : Fragment() {
             //Por ultimo creamos una variable que nos guarde el texto que vamos a escribir en el fichero
             val textoFichero: String
             textoFichero = dia + ";" + mes + ";" + ano + ";" + binding.editTxtNombre.text.toString() + ";" +
-                    binding.txtModalidad.text.toString() + ";" +
-                    binding.txtCiclo.text.toString()+ ";" + grupoClase.toString()
+                    modalidad   + ";" +  binding.txtCiclo.text.toString().uppercase() + ";" + grupoClase.toString()
+            //3.0 añadido gaurdar en mayusculas el ciclo
             //Llamamos a la funcion escribir fichero y le pasamos el texto que hemos creado
             escribirFichero(textoFichero)
         }
@@ -155,15 +162,17 @@ class FragmentPrincipal : Fragment() {
         try {
             // 1º Creamos el objeto de tipo OutputStreamWriter
             val salida: OutputStreamWriter
-            //Si el fichero no existe lo crea y si existe escribe en el una linea y return "\n"
+            // Si el fichero no existe lo crea y si existe escribe en el una linea y return "\n"
             salida = OutputStreamWriter(requireContext().openFileOutput(getString(R.string.filename), AppCompatActivity.MODE_APPEND))
             salida.write(textoFichero + '\n')
             // Se confirma la escritura.
             salida.flush()
             salida.close()
-            //Mostramos un toast y escribimos en el logcat
+            // Mostramos un toast y escribimos en el logcat
             Toast.makeText(activity, "Escritura Correcta", Toast.LENGTH_SHORT).show()
             Log.d("Archivo", "Fichero guardado correctamente")
+            // Si todo esta guardado correctamente borramos los datos
+            borrarDatos()
         }
         //En el caso que de algun problema lo envia a pantalla por toast
         catch (e: IOException) {
@@ -192,6 +201,54 @@ class FragmentPrincipal : Fragment() {
         }
         return mesString
     }
+
+    //Vale vamos a hacer la funcion de el cuadro de alerta
+    private fun myAlertDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        // Se crea el AlertDialog.
+        builder.apply {
+            // Se asigna un título.
+            setTitle("HISTORICO")
+            // Se asgina el cuerpo del mensaje.
+            setMessage("Desea guardar la informacion obtenida para el Historico")
+            // Se define el comportamiento de los botones.
+            setPositiveButton(
+                android.R.string.ok,
+                DialogInterface.OnClickListener(function = actionButton)
+            )
+            setNegativeButton(
+                android.R.string.cancel,
+                DialogInterface.OnClickListener(function = actionButton2))
+
+        }
+        // Se muestra el AlertDialog.
+        builder.show()
+    }
+    // Declaramos las funciones de los botones del cuadro de alerta
+    private val actionButton = { dialog: DialogInterface, which: Int ->
+        Toast.makeText(requireContext(), android.R.string.ok, Toast.LENGTH_SHORT).show()
+        //Llamamos a la funcion introducir datos
+        introducirDatos()
+
+    }
+    private val actionButton2 = { dialog: DialogInterface, which: Int ->
+        Toast.makeText(requireContext(), android.R.string.cancel, Toast.LENGTH_SHORT).show()
+        //Llamamos a la funcion borrar datos
+        borrarDatos()
+    }
+
+    // Realizamos la funcion borrarDatos para borrar los datos de los campos y asi utilizarla
+    // en varios lugares y limpiar codigo
+    private fun  borrarDatos(){
+        binding.editTxtNombre.text.clear()
+        binding.txtFecha.text = ""
+        binding.txtModalidad.text = ""
+        binding.txtCiclo.text = ""
+        binding.txtResult.text = ""
+        binding.btnHistoricoSave.isEnabled = false
+        binding.btnEdadGrupo.isEnabled = false
+    }
+
 
     //Funcion para ocultar el teclado
     fun ocultarTeclado(view: View) {

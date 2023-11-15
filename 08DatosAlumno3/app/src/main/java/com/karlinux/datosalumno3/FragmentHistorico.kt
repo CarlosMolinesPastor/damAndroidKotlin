@@ -52,7 +52,7 @@ class FragmentHistorico : Fragment() {
 
     //Funcion para leer el fichero
     private fun leerFichero(): MutableList<Datos> {
-        //Creamos una lista de datos, para despues cuando nos pongamos linea por linea en
+        // Creamos una lista de datos, para despues cuando nos pongamos linea por linea en
         // el bucle del while vayamos añadiendo y posteriomente la devolvemos para pasarla
         // al adapter
         val listaDatos : MutableList<Datos> = arrayListOf()

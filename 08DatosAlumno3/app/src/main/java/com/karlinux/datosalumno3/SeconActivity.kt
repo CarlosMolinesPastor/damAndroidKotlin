@@ -1,6 +1,8 @@
 package com.karlinux.datosalumno3
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -35,52 +37,12 @@ class SeconActivity : AppCompatActivity() {
             setResult(Activity.RESULT_CANCELED)
             finish()
         }
-    }
-
-    //Funciones heredadas del anterior ejercicio con la salvedad que ahora  trabajamos con
-    // con un txtNombre que nos viene en intent desde el MAinActivity
-    //funcion para calcular el ano bisiesto y devuelve bool true or false
-    private fun bisiesto(ano: Int): Boolean {
-        var esBisiesto: Boolean = false
-        //si es divisible por 4 y no divisble por 100, o es divisible por
-        // 400 entonces es verdadero
-        if ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0))
-            esBisiesto = true
-        return esBisiesto
-    }
-
-    //Tenemos que comprobar que los dias corresponden al mes, en primer lugar
-    // no pueden ser menor que 1, y por otro lado depende del mes no puede ser
-    // mayor que el dia que le corresponda al mes con la salvedad de febrero que
-    // si es bisiesto tendra 29 dias
-    //Le pasamos los dias meses y años como enteros, nos devuelve boolean
-    private fun fechacorrecta(dia: Int, mes: Int, ano: Int) :Boolean{
-        var correcto :Boolean = true
-
-        if (ano < 0)
-            correcto = false
-        else {
-            if (mes < 1 || mes > 12)
-                correcto = false
-            else {
-                if (dia < 1)
-                    correcto = false
-                else {
-                    if ((mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) && dia > 31)
-                        correcto = false
-                    if (mes == 2 && bisiesto(ano) && dia > 29)
-                    //Llamamos a la funcion bisiesto y le pasaos el ano
-                        correcto = false
-                    if (mes == 2 && !bisiesto(ano) && dia > 28)
-                        correcto = false
-                    if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30)
-                        correcto = false
-                }
-            }
+        binding.IdFechaNac.setOnClickListener(){
+            //Listener que ejecuta el date picker y calcula la edad de paso
+            myDatePicker()
         }
-
-        return correcto
     }
+
 
     //Funcion para calcular la edad, le pasamos los dias meses y años como enteros
     private fun calcularedad (diaNac :Int, mesNac :Int, anoNac :Int) :Int{
@@ -93,12 +55,11 @@ class SeconActivity : AppCompatActivity() {
         // ENERO - 0, FEBRERO - 1, ..., DICIEMBRE - 11
         mesHoy = hoy.get(Calendar.MONTH) + 1
         anoHoy = hoy.get(Calendar.YEAR)
-
+        // Calculamos la edad
         var edad :Int = anoHoy - anoNac
-
+        // Si el mes de hoy es menor al mes de nacimiento, restar un año
         if (mesHoy < mesNac || (mesHoy == mesNac && diaHoy < diaNac))
             edad--
-
         return edad
     }
 
@@ -173,32 +134,24 @@ class SeconActivity : AppCompatActivity() {
     // la transformacion directamente en el llamammiento a la funcion
     private fun mostrardatos(view: View) {
         //Contstantes y variables
-        val dia :String = binding.txtDay.text.toString()
-        val mes :String = binding.txtMonth.text.toString()
-        val ano :String = binding.txtYear.text.toString()
+        //Las primeras utilizamos el split para crear constantes que nos guarden el dia mes y año
+        val dia = binding.IdFechaNac.text.toString().split("/")[0]
+        val mes  = binding.IdFechaNac.text.toString().split("/")[1]
+        val ano = binding.IdFechaNac.text.toString().split("/")[2]
+
         //Declaramos la fecha para almacenarla como string
-        val fechaNac :String = "$dia/$mes/$ano"
         //Declaramos Grupo clase para almacenarlo
+        val fechaNac : String = binding.IdFechaNac.text.toString()
         val grupoClase : String = asignargrupoclase()
         val texto :String
         val edad :Int
 
-        // Primero comprobamos que los campos no esten vacios (primero en todas ocultamos el teclado)
-        if ( binding.txtDay.text.isEmpty() || binding.txtMonth.text.isEmpty() ||
-            binding.txtYear.text.isEmpty() ){
-            ocultarTeclado(view)
-            texto = "Falta algun dato de la fecha!!"
+        // Primero comprobamos que se haya picado en la fecha y se haya introducido una
+        if ( binding.IdFechaNac.text == "Fecha Nac: ? / ? / ?" ){
+            texto = "No has introducido la fecha. Pica en el cuadro azul!!"
             Toast.makeText(this, texto, Toast.LENGTH_SHORT).show()
         }
-        //Si los campos no estan vacios comprobamos que la fecha sea correcta
-        else if (!fechacorrecta(dia.toInt(),mes.toInt(),ano.toInt())){
-            ocultarTeclado(view)
-            texto = "Fecha Incorrecta!!"
-            Toast.makeText(this, texto, Toast.LENGTH_SHORT).show()
-        }
-        //Si la fecha es correcta y todo OK pasamos a MainActivity
         else {
-            ocultarTeclado(view)
             //Calculamos la edad
             edad = calcularedad(dia.toInt(),mes.toInt(),ano.toInt())
             //Creamos el intent para pasar los datos a MainActivity
@@ -217,11 +170,44 @@ class SeconActivity : AppCompatActivity() {
         }
     }
 
+    //Funcion data picker para la fecha de nacimiento, en la que comprobamos que sea correcta,
+    // es decir que al menos la persona tenga un 1 dia, je je.
+    // Hacemos que devuelva la edad y asi ya la tenemos para pasarla al main activity y la
+    // funcion mostrardatos
+    private fun myDatePicker() {
+        var edad = 0
+        val cal = Calendar.getInstance()
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
+            cal.set(Calendar.YEAR, year)
+            cal.set(Calendar.MONTH, month)
+            cal.set(Calendar.DAY_OF_MONTH, day)
 
-    //Funcion ocultarteclado, le pasamos la vista actual
-    fun ocultarTeclado(view: View) {
-        val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            // Validar la fecha seleccionada mediante la funcon fecha correcta
+            if (fechacorrecta(cal)) {
+                // La fecha es válida, actualiza el campo de texto
+                binding.IdFechaNac.text = "${day}/${month + 1}/${year}"
+            } else {
+                // La fecha no es válida, muestra un mensaje de error
+                Toast.makeText(this, "Fecha no válida", Toast.LENGTH_SHORT).show()
+            }
+        }
+        DatePickerDialog(this, dateSetListener,
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        ).show()
     }
+
+    //Funcion fechacorrecta que le pasamos un calendario y nos devuelve un booleano falso en el
+    // caso que la fecha sea mayor que la actual
+    private fun fechacorrecta(cal: Calendar): Boolean {
+        // Aquí puedes realizar la validación de la fecha
+        // Por ejemplo, verifica si la fecha seleccionada no es mayor que la fecha actual
+        val correcto = true
+        val currentDate = Calendar.getInstance()
+        if (return cal <= currentDate)
+            correcto = false
+    }
+
 
 }
