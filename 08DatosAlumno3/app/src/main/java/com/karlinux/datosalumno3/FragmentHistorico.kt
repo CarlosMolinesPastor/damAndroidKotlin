@@ -1,23 +1,24 @@
+// ### FRAGMENTO PARA MOSTRAR LOS DATOS DEL HISTORICO ###
 package com.karlinux.datosalumno3
 
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.karlinux.datosalumno3.databinding.FragmentHistoricoBinding
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
 
 
 class FragmentHistorico : Fragment() {
 
     private lateinit var binding: FragmentHistoricoBinding
-    private lateinit var myAdapter: DatosAdapter
-
+    //private lateinit var myAdapter: DatosAdapter
+    private lateinit var datosDBHelper: MyDatosDBOpenHelper
+    private lateinit var db: SQLiteDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +26,11 @@ class FragmentHistorico : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHistoricoBinding.inflate(inflater)
+        // Inicializar datosDBHelper
+        datosDBHelper = MyDatosDBOpenHelper(requireContext())
+
+
+        //
         setUpRecyclerView()
         return binding.root
     }
@@ -37,20 +43,31 @@ class FragmentHistorico : Fragment() {
 
     //Funcion para leer el fichero y mostrarlo en el recycler view
     private fun setUpRecyclerView() {
+
+        //Se crea el cursor oportuno
+        db = datosDBHelper.readableDatabase
+        val cursor: Cursor = db.rawQuery(
+            "SELECT * FROM ${MyDatosDBOpenHelper.TABLA_ALUMNOS};", null
+        )
+        // Se crea el adaptador con el resultado del cursor.
+        val myRecyclerViewAdapter = DatosAdapter(requireContext(), cursor)
         // Esta opción a TRUE significa que el RV tendrá
         // hijos del mismo tamaño, optimiza su creación.
         binding.myRVDatos.setHasFixedSize(true)
         // Se indica el contexto para RV en forma de lista.
         binding.myRVDatos.layoutManager = LinearLayoutManager(requireContext())
-        // Se genera el adapter. Con la lista que devuelve al leer el fichero con la funcion
-        // leerFichero y el contexto
-        myAdapter = DatosAdapter(leerFichero(), activity as MainActivity)
-
         // Se asigna el adapter al RV.
-        binding.myRVDatos.adapter = myAdapter
+        binding.myRVDatos.adapter = myRecyclerViewAdapter
     }
 
-    //Funcion para leer el fichero
+    override fun onDestroy() {
+        super.onDestroy()
+        // Cerramos la conexión al terminar la activity.
+        Log.d("onDestroy", "Cerramos la conexión")
+        db.close()
+    }
+    // ########### FUNCION LEER FICHERO ###########
+    /*Funcion para leer el fichero
     private fun leerFichero(): MutableList<Datos> {
         // Creamos una lista de datos, para despues cuando nos pongamos linea por linea en
         // el bucle del while vayamos añadiendo y posteriomente la devolvemos para pasarla
@@ -82,5 +99,5 @@ class FragmentHistorico : Fragment() {
         }
         //Devolvemos la lista de datos
         return listaDatos
-    }
+    }*/
 }

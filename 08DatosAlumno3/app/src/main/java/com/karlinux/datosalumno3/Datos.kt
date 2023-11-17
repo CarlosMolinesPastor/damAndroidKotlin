@@ -1,3 +1,4 @@
+//######  DATA CLASS #########
 //Creamos el data class para poder crear la lista que le pasamos
 package com.karlinux.datosalumno3
 

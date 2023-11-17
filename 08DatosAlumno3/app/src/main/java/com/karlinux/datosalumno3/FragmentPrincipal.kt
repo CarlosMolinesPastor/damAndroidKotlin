@@ -1,9 +1,12 @@
+// ##### FRAGMENT PRINCIPAL #####
 package com.karlinux.datosalumno3
 
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +25,8 @@ import java.io.OutputStreamWriter
 
 class FragmentPrincipal : Fragment() {
     private lateinit var binding: FragmentPrincipalBinding
+    private lateinit var datosDBHelper: MyDatosDBOpenHelper
+
     companion object {
         const val TAG_APP = "myDatosAlumno"
 
@@ -40,6 +45,11 @@ class FragmentPrincipal : Fragment() {
         savedInstanceState: Bundle? ): View? {
         // Inflate the layout for this fragment
         binding = FragmentPrincipalBinding.inflate(inflater)
+
+        // Se instancia el objeto MyDBOpenHelper.
+        datosDBHelper = MyDatosDBOpenHelper(requireContext())
+
+
 
         //Listener al boton de leer para lanzar la segunda actividad, vaciando el txt Result
         binding.btnLeer.setOnClickListener() {
@@ -118,11 +128,12 @@ class FragmentPrincipal : Fragment() {
             }
         }
 
+    //#########################METODO PARA GUARDAR EN HISTORICO######################## POR FICHERO
     //Ahora vamos a por GUARDAR EN HISTORICO, para ello lo primero es crear un listener en el boton
     // y luego crear la funcion que guarde en el historico, esta realmente se compone de
     // dos funciones la primera para introducir los datos (que es la que llamamos desde el boton
     // y la segunda para escibirlos en el fichero
-    private fun introducirDatos() {
+    /*private fun introducirDatos() {
         //Aqui aunque no sea necesario, el indicarle que no continue en caso que haya algun campo
         // vacio, lo hacems, pues podriamos tener problemas con el fichero al poder borrar el nombre
         if (binding.txtFecha.text.toString() == "" || binding.txtModalidad.text.toString() == "" ||
@@ -152,6 +163,34 @@ class FragmentPrincipal : Fragment() {
             //3.0 añadido gaurdar en mayusculas el ciclo
             //Llamamos a la funcion escribir fichero y le pasamos el texto que hemos creado
             escribirFichero(textoFichero)
+        }
+    }*/
+
+    //#########################METODO PARA GUARDAR EN HISTORICO######################## POR BASE DE DATOS
+    private fun introducirDatos()
+    {
+        if (binding.txtFecha.text.toString() == "" || binding.txtModalidad.text.toString() == "" ||
+            binding.txtCiclo.text.toString() == "" || binding.editTxtNombre.text.toString() == ""
+        ) {
+            Toast.makeText(activity, "No hay datos que guardar", Toast.LENGTH_SHORT).show()
+        } else {
+            // Primero para pasar los datos de la fecha por separado dia, mes y año, cortando el string por "/"
+            // Y guardandolo en variables dia mes y año
+            val datosFecha :List<String> = binding.txtFecha.text.toString().split("/")
+            val dia = datosFecha[0]
+            // El mes le pasamos la funcion asignarMes que nos devuelve el nombre del mes
+            val mes = asignarMes(datosFecha[1].toInt())
+            val ano = datosFecha[2]
+            //Creamos una variable para guardar la modalidad entre parentesis
+            val modalidad = "(" + binding.txtModalidad.text.toString() + ")"
+            //Ahora vamos a por el grupo clase, que lo vamos a coger del txtResult, y lo recogemos en un aray lo
+            // dividimos por el salto de linea y cogemos las dos ultimas lineas y las guardamos en
+            // una variable
+            val result = binding.txtResult.text.toString().split("\n")
+            val grupoClase = result[1] + result[2]
+            datosDBHelper.addAlumno(binding.editTxtNombre.text.toString(), dia, mes, ano, modalidad, binding.txtCiclo.text.toString().uppercase(), grupoClase)
+            Toast.makeText(activity, "Datos guardados en la base de datos", Toast.LENGTH_SHORT).show()
+            binding.btnHistoricoSave.isEnabled = false
         }
     }
 

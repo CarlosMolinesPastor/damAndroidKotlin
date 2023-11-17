@@ -1,3 +1,4 @@
+// ######### ADAPTER PARA EL VIEWPAGER2 #########
 package com.karlinux.datosalumno3
 
 import androidx.fragment.app.Fragment

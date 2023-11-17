@@ -1,3 +1,4 @@
+// ############# BASE DE DATOS #################
 package com.karlinux.datosalumno3
 
 import android.content.ContentValues
@@ -65,7 +66,7 @@ class MyDatosDBOpenHelper (context: Context) :
     //CRUD ###########
 
     //CREATE
-    fun insertarAlumno(
+    fun addAlumno(
         nombre: String, dia: String, mes: String, ano: String,
         modalidad: String, ciclo: String, grupoClase: String
     ) {

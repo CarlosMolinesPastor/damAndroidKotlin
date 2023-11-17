@@ -1,3 +1,4 @@
+// ######## MAIN ACTIVITY ##########
 package com.karlinux.datosalumno3
 
 //Carlos Molines Pastor (karlinux)
