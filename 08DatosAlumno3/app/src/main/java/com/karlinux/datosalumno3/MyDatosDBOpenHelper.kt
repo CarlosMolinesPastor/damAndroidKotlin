@@ -7,11 +7,11 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-
+// Creamos la clase MyDatosDBOpenHelper que hereda de SQLiteOpenHelper.
 class MyDatosDBOpenHelper (context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     val TAG = "SQLite"
-
+    // Se definen las constantes de la BD. con companion object se puede acceder a ellas desde cualquier sitio
     companion object {
         val DATABASE_VERSION = 1
         val DATABASE_NAME = "datos.db"
@@ -26,6 +26,8 @@ class MyDatosDBOpenHelper (context: Context) :
     val COLUMNA_MODALIDAD = "modalidad"
     val COLUMNA_CICLO = "ciclo"
     val COLUMNA_GRUPOCLASE = "grupoClase"
+
+    // Se crea la tabla de la BD
     override fun onCreate(db: SQLiteDatabase?) {
         try {
             val crearTablaAlumnos = "CREATE TABLE $TABLA_ALUMNOS " +
@@ -43,6 +45,7 @@ class MyDatosDBOpenHelper (context: Context) :
         }
     }
 
+    // Se actualiza la tabla de la BD
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         try {
             val dropTablaAlumnos = "DROP TABLE IF EXISTS $TABLA_ALUMNOS"
@@ -54,18 +57,18 @@ class MyDatosDBOpenHelper (context: Context) :
     }
 
     /**
-     * Método opcional. Se llamará a este método después de abrir la base de
-     * datos, antes de ello, comprobará si está en modo lectura. Se llama justo
-     * después de establecer la conexión y crear el esquema.
+     * Método opcional. Se llamará a este método después de abrir la base
      */
     override fun onOpen(db: SQLiteDatabase?) {
         super.onOpen(db)
         Log.d("$TAG (onOpen)", "¡¡Base de datos abierta!!")
     }
 
-    //CRUD ###########
+    // ################ CRUD #################
 
     //CREATE
+    // Se añade un alumno a la BD. Se le pasan los datos del alumno. Se abre la BD en modo escritura.
+    // Se crea un ContentValues() con los datos del alumno. Se inserta el alumno en la BD.
     fun addAlumno(
         nombre: String, dia: String, mes: String, ano: String,
         modalidad: String, ciclo: String, grupoClase: String
@@ -89,7 +92,10 @@ class MyDatosDBOpenHelper (context: Context) :
     }
 
     //Ni el metodo borrarAlumno (delAlumno) ni el metodo updateAlumno (updateAlumno) se usan pero
-    // los dejo por si acaso
+    // los dejo por si acaso. Se pueden borrar.
+    //BORRAR
+    // Se borra un alumno de la BD. Se le pasa el identificador del alumno. Se abre la BD en modo escritura.
+    // Se borra el alumno de la BD. Se cierra la BD.
     fun delAlumno(identifier: Int): Int {
         val args = arrayOf(identifier.toString())
         // Se abre la BD en modo escritura.
@@ -100,7 +106,10 @@ class MyDatosDBOpenHelper (context: Context) :
         db.close()
         return result
     }
-
+    //UPDATE
+    // Se actualiza un alumno de la BD. Se le pasa el identificador del alumno y los nuevos datos.
+    // Se abre la BD en modo escritura. Se crea un ArrayMap<>() con los datos nuevos.
+    // Se actualiza el alumno de la BD. Se cierra la BD.
     fun updateAlumno(identifier: Int, newName: String, newDia: String, newMes: String,
                      newAno: String, newModalidad: String, newCiclo: String, newGrupoClase: String) {
         val args = arrayOf(identifier.toString())

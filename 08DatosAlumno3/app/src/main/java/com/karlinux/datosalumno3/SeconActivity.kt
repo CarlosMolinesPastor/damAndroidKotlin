@@ -20,7 +20,7 @@ class SeconActivity : AppCompatActivity() {
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //Recogemos lo enviado desde el MainActivity, en este caso el nombre y lo mostramos
+        //Recogemos lo enviado desde el Fragment , en este caso el nombre y lo mostramos
         val myNombre = intent.getStringExtra(FragmentPrincipal.EXTRA_NOMBRE)
         binding.txtNombre.text = myNombre.toString()
 
@@ -75,7 +75,7 @@ class SeconActivity : AppCompatActivity() {
         val rbDam = binding.rbDam
         val texto : String
         var clase = 0 // clase y grupo las inicializamos
-        var grupo :String = ""
+        var grupo  = ""
         val clases : Array<Int> = arrayOf(201,202,203,204,205,206)
         val grupos : Array<String> = arrayOf("A","B","C","D","E","F")
 
@@ -174,14 +174,16 @@ class SeconActivity : AppCompatActivity() {
     // Hacemos que devuelva la edad y asi ya la tenemos para pasarla al main activity y la
     // funcion mostrardatos
     private fun myDatePicker() {
-        var edad = 0
+        // Se crea un objeto de tipo Calendar con la fecha actual.
         val cal = Calendar.getInstance()
+        // Se crea un objeto de tipo DatePickerDialog con el contexto de la app, un listener para
+        // cuando se seleccione una fecha, y la fecha actual.
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, day ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, month)
             cal.set(Calendar.DAY_OF_MONTH, day)
-
-            // Validar la fecha seleccionada mediante la funcon fecha correcta
+            // Validar la fecha seleccionada mediante la funcion fecha correcta que calcula si
+            // la fecha es mayor que la actual en caso correcto devuelve false
             if (fechacorrecta(cal)) {
                 // La fecha es válida, actualiza el campo de texto
                 binding.IdFechaNac.text = "${day}/${month + 1}/${year}"
@@ -190,6 +192,7 @@ class SeconActivity : AppCompatActivity() {
                 Toast.makeText(this, "Fecha no válida", Toast.LENGTH_SHORT).show()
             }
         }
+        // Se muestra el diálogo con el calendario.
         DatePickerDialog(this, dateSetListener,
             cal.get(Calendar.YEAR),
             cal.get(Calendar.MONTH),
@@ -200,12 +203,14 @@ class SeconActivity : AppCompatActivity() {
     //Funcion fechacorrecta que le pasamos un calendario y nos devuelve un booleano falso en el
     // caso que la fecha sea mayor que la actual
     private fun fechacorrecta(cal: Calendar): Boolean {
-        // Aquí puedes realizar la validación de la fecha
-        // Por ejemplo, verifica si la fecha seleccionada no es mayor que la fecha actual
+        // Esta funcion comprueba que la fecha sea correcta, es decir que no sea mayor que la actual
+        // Si es mayor devuelve false
         val correcto = true
         val currentDate = Calendar.getInstance()
-        if (return cal <= currentDate)
-            correcto = false
+        return if ( cal <= currentDate)
+            correcto
+        else
+            !correcto
     }
 
 

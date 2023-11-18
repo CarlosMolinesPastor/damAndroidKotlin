@@ -21,16 +21,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Se crea el viewPager2. Se ha modificado el código original para que funcione con fragments
         val viewPager2 = binding.viewPager2
         // Se crea el adapter.
         val adapter = ViewPager2Adapter(supportFragmentManager, lifecycle)
         // Se añaden los fragments y los títulos de pestañas.
         // Es lo unico que se ha tenido que modificar del codigo original
+        // para que funcione con fragments.
+        // Se añaden los fragments y los títulos de pestañas.
         adapter.addFragment(FragmentPrincipal(), "Datos")
         adapter.addFragment(FragmentHistorico(),"Historico")
         // Se asocia el adpater al viewPager2
         viewPager2.adapter = adapter
-        // Carga de las pestañas en el TabLayout
+        // Carga de las pestañas en el TabLayout y asociación con el viewPager2.
         TabLayoutMediator(binding.tabLayout, viewPager2){tab, position ->
             tab.text = adapter.getPageTitle(position)}.attach()
     }

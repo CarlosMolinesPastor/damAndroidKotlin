@@ -18,19 +18,20 @@ class FragmentHistorico : Fragment() {
     private lateinit var binding: FragmentHistoricoBinding
     //private lateinit var myAdapter: DatosAdapter
     private lateinit var datosDBHelper: MyDatosDBOpenHelper
+    // Se declara la variable para la base de datos.
     private lateinit var db: SQLiteDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        // Inflamos el layout para este fragmento.
         binding = FragmentHistoricoBinding.inflate(inflater)
         // Inicializar datosDBHelper
         datosDBHelper = MyDatosDBOpenHelper(requireContext())
 
 
-        //
+        // Inicializar el RecyclerView.
         setUpRecyclerView()
         return binding.root
     }
@@ -60,6 +61,7 @@ class FragmentHistorico : Fragment() {
         binding.myRVDatos.adapter = myRecyclerViewAdapter
     }
 
+    // Cerramos la conexión al terminar la activity.
     override fun onDestroy() {
         super.onDestroy()
         // Cerramos la conexión al terminar la activity.

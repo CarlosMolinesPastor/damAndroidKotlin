@@ -12,20 +12,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.karlinux.datosalumno3.databinding.ItemAlumnoBinding
 
-//Creamos el adapter
+//Creamos el adapter ahora con la base de datos le pasamos el contexto y el cursor en lugar de la lista
 class DatosAdapter(context:Context, cursor: Cursor) : RecyclerView.Adapter<DatosAdapter.DatosViewHolder>(){
-    // Creamos las variables primero una lista mutable de la data class datos y el contexto
+    // Creamos las variables para el cursor y el contexto.
     private lateinit var binding: ItemAlumnoBinding
     var mycursor : Cursor
     var myContext : Context
-    //Creamos un Companion Object para poder acceder a la lista desde la clase VistaActivity
-
     //Iniciamos las variables
     init {
         mycursor = cursor
         myContext = context
     }
-
+    //Creamos un Companion Object para poder acceder a la lista desde la clase VistaActivity
     companion object {
         const val TAG_APP = "myDatosPersonales"
 
@@ -42,6 +40,7 @@ class DatosAdapter(context:Context, cursor: Cursor) : RecyclerView.Adapter<Datos
         const val EXTRA_GRUPOCLASE = "myGrupoClase"
     }
 
+    //Creamos el ViewHolder con los elementos de la UI inflamos la vista y la devolvemos en el ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup,viewType: Int ): DatosViewHolder {
         Log.d("RECYCLERVIEW", "onCreateViewHolder")
         val inflater = LayoutInflater.from(parent.context)
@@ -50,7 +49,7 @@ class DatosAdapter(context:Context, cursor: Cursor) : RecyclerView.Adapter<Datos
         )
     }
 
-    //Enlazamos el ViewHolder con los datos
+    //Enlazamos el ViewHolder con los datos de la base de datos a traves del cursor
     override fun onBindViewHolder(holder: DatosViewHolder, position: Int) {
         // Importante para recorrer el cursor.
         mycursor.moveToPosition(position)
@@ -64,7 +63,7 @@ class DatosAdapter(context:Context, cursor: Cursor) : RecyclerView.Adapter<Datos
         holder.ciclo.text = mycursor.getString(6)
     }
 
-    //Devolvemos el tamaño de la lista
+    //Devolvemos el tamaño de la lista por el numero de elementos del cursor
     override fun getItemCount(): Int {
         return if (mycursor != null)
             mycursor.count
@@ -80,7 +79,7 @@ class DatosAdapter(context:Context, cursor: Cursor) : RecyclerView.Adapter<Datos
         val ano: TextView
         val modalidad: TextView
         val ciclo: TextView
-
+        // creamos el constructor de la clase ViewHolder que recibe la vista y enlaza los elementos de la interfaz
         constructor(view: View) : super(view) {
             // Se enlazan los elementos de la UI mediante ViewBinding.
             val bindingIAlum = ItemAlumnoBinding.bind(view)
@@ -90,7 +89,7 @@ class DatosAdapter(context:Context, cursor: Cursor) : RecyclerView.Adapter<Datos
             this.ano = bindingIAlum.labelAnyo
             this.modalidad = bindingIAlum.labelModalidad
             this.ciclo = bindingIAlum.labelCiclo
-
+            // Se crea el listener para el evento onClick. Se lanza un intent con los datos del alumno. Se lanza la actividad VistaActivity.
             itemView.setOnClickListener {
                 //Toast.makeText(context,datos.grupoClase.toString(), Toast.LENGTH_SHORT).show()
                 val myIntent: Intent = Intent(it?.context, VistaActivity::class.java).apply {
@@ -105,8 +104,7 @@ class DatosAdapter(context:Context, cursor: Cursor) : RecyclerView.Adapter<Datos
                 }
                 //Lanzamos el intent
                 // it se refiere a la vista (itemView) dentro de la lambda.
-                // context es el contexto de la aplicación de Android que se pasa
-                // como parámetro a la función bind.
+                // context es el contexto de la aplicación de Android
                 it?.context?.startActivity(myIntent)
             }
         }

@@ -13,7 +13,6 @@ class VistaActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //Recogemos los datos enviados desde el adapter que se encuentra en DatosAdapter
-        val myId = intent.getIntExtra(DatosAdapter.EXTRA_ID,0)
         val mynombre = intent.getStringExtra(DatosAdapter.EXTRA_NOMBRE)
         val myGrupoClase = intent.getStringExtra(DatosAdapter.EXTRA_GRUPOCLASE)
         val myModalidad = intent.getStringExtra(DatosAdapter.EXTRA_MODALIDAD)
