@@ -11,7 +11,7 @@
     <string name="daw">Daw</string>
     <string name="Idname">Nombre:</string>
     <string name="btnEdadGrupo">Obtener Edad y Grupo</string>
-    <string name="btnGuardarHisto">Gurdar en Histórico</string>
+    <string name="btnGuardarHisto">Guardar en Histórico</string>
     <string name="btnVerHist">Ver Histórico</string>
     <string name="IdFecha">Fecha Nac:</string>
     <string name="Interrogante">\?</string>

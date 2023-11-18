@@ -25,6 +25,7 @@ import java.io.OutputStreamWriter
 
 class FragmentPrincipal : Fragment() {
     private lateinit var binding: FragmentPrincipalBinding
+    //Creamos una variable para la base de datos
     private lateinit var datosDBHelper: MyDatosDBOpenHelper
 
     companion object {
@@ -46,7 +47,7 @@ class FragmentPrincipal : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentPrincipalBinding.inflate(inflater)
 
-        // Se instancia el objeto MyDBOpenHelper.
+        // Instanciamos el objeto MyDBOpenHelper.
         datosDBHelper = MyDatosDBOpenHelper(requireContext())
 
 
@@ -166,7 +167,7 @@ class FragmentPrincipal : Fragment() {
         }
     }*/
 
-    //#########################METODO PARA GUARDAR EN HISTORICO######################## POR BASE DE DATOS
+    //################ METODO PARA GUARDAR EN HISTORICO ######################## POR BASE DE DATOS #############
     private fun introducirDatos()
     {
         if (binding.txtFecha.text.toString() == "" || binding.txtModalidad.text.toString() == "" ||
@@ -188,14 +189,18 @@ class FragmentPrincipal : Fragment() {
             // una variable
             val result = binding.txtResult.text.toString().split("\n")
             val grupoClase = result[1] + result[2]
+            // Por ultimo llamamos a la funcion addAlumno de la clase MyDatosDBOpenHelper y le pasamos los datos que hemos recogido en las variables
             datosDBHelper.addAlumno(binding.editTxtNombre.text.toString(), dia, mes, ano, modalidad, binding.txtCiclo.text.toString().uppercase(), grupoClase)
+            // Mostramos un toast...
             Toast.makeText(activity, "Datos guardados en la base de datos", Toast.LENGTH_SHORT).show()
+            // anulamos el boton de guardar en historico y borramos los datos
             binding.btnHistoricoSave.isEnabled = false
+            borrarDatos()
         }
     }
 
     //Funcion para escribir en el fichero
-    private fun escribirFichero(textoFichero: String) {
+    /*private fun escribirFichero(textoFichero: String) {
         //Ahora lo que vamos a hacer es escribir los datos en un fichero de texto
         // Le pasamos un try por si hay algun problema
         try {
@@ -219,7 +224,7 @@ class FragmentPrincipal : Fragment() {
             //Escribimos un error al logcat
             Log.d("Archivo", "Error al escribir el fichero")
         }
-    }
+    }*/
 
     //Funcion para asignar el nombre del mes al mes mediante un when (switch
     private fun asignarMes(mes: Int): String {
