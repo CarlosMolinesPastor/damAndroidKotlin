@@ -91,7 +91,8 @@ class DatosAdapter(context:Context, cursor: Cursor) : RecyclerView.Adapter<Datos
             this.ciclo = bindingIAlum.labelCiclo
             // Se crea el listener para el evento onClick. Se lanza un intent con los datos del alumno. Se lanza la actividad VistaActivity.
             itemView.setOnClickListener {
-                //Toast.makeText(context,datos.grupoClase.toString(), Toast.LENGTH_SHORT).show()
+                // Creamos el intent para enviar los datos a la actividad VistaActivity que despues lo recoge, no lo hacemos por getresult
+                // porque no necesitamos devolver nada
                 val myIntent: Intent = Intent(it?.context, VistaActivity::class.java).apply {
                     putExtra(EXTRA_ID, mycursor.getString(0).toString())
                     putExtra(EXTRA_NOMBRE, mycursor.getString(1).toString())
