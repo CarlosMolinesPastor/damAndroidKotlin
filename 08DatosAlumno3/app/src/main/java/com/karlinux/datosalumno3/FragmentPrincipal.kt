@@ -252,9 +252,9 @@ class FragmentPrincipal : Fragment() {
         // Se crea el AlertDialog.
         builder.apply {
             // Se asigna un título.
-            setTitle("HISTORICO")
+            setTitle("BASE DE DATOS")
             // Se asgina el cuerpo del mensaje.
-            setMessage("Desea guardar la informacion obtenida para el Historico")
+            setMessage("Desea guardar la informacion obtenida en la BASE DE DATOS")
             // Se define el comportamiento de los botones.
             setPositiveButton(
                 android.R.string.ok,

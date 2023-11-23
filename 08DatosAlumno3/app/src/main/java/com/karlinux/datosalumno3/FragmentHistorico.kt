@@ -30,7 +30,6 @@ class FragmentHistorico : Fragment() {
         // Inicializar datosDBHelper
         datosDBHelper = MyDatosDBOpenHelper(requireContext())
 
-
         // Inicializar el RecyclerView.
         setUpRecyclerView()
         return binding.root

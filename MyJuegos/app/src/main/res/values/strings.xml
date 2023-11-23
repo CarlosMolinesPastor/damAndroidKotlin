@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MyJuegos</string>
+    <string name="juegos">Juegos</string>
+    <string name="nombre_del_juego">Nombre del Juego: </string>
+    <string name="desarrollador">Desarrollador: </string>
+    <string name="anyo">Año: </string>
+    <string name="hint_nombre">Nombre del Juego: </string>
+    <string name="url_imagen">Url Imagen: </string>
+    <string name="todo">TODO</string>
+    <string name="anyadir">Guardar</string>
+    <string name="editar">Editar</string>
+    <string name="borrar">Borrar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="anyadirMenu">Añadir</string>
+    <string name="edicion">Edicion</string>
+</resources>

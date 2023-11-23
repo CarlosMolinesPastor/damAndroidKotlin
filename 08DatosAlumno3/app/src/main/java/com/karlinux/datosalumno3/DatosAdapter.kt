@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.karlinux.datosalumno3.databinding.ItemAlumnoBinding
 
@@ -41,71 +42,63 @@ class DatosAdapter(context:Context, cursor: Cursor) : RecyclerView.Adapter<Datos
     }
 
     //Creamos el ViewHolder con los elementos de la UI inflamos la vista y la devolvemos en el ViewHolder
-    override fun onCreateViewHolder(parent: ViewGroup,viewType: Int ): DatosViewHolder {
-        Log.d("RECYCLERVIEW", "onCreateViewHolder")
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DatosViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return DatosViewHolder(
-            inflater.inflate(R.layout.item_alumno,parent,false)
-        )
+        val view = inflater.inflate(R.layout.item_alumno, parent, false)
+        return DatosViewHolder(view)
     }
-
     //Enlazamos el ViewHolder con los datos de la base de datos a traves del cursor
     override fun onBindViewHolder(holder: DatosViewHolder, position: Int) {
-        // Importante para recorrer el cursor.
         mycursor.moveToPosition(position)
-        Log.d("RECYCLERVIEW", "onBindViewHolder")
-        // Se asignan los valores a los elementos de la UI.
-        holder.nombre.text= mycursor.getString(1)
-        holder.dia.text = mycursor.getString(2)
-        holder.mes.text = mycursor.getString(3)
-        holder.ano.text = mycursor.getString(4)
-        holder.modalidad.text = mycursor.getString(5)
-        holder.ciclo.text = mycursor.getString(6)
+        holder.bindData(mycursor)
     }
-
     //Devolvemos el tamaño de la lista por el numero de elementos del cursor
     override fun getItemCount(): Int {
-        return if (mycursor != null)
-            mycursor.count
-        else 0
+        return mycursor.count
     }
-
-    //Hay que crear la clase ViewHolder que extiende de RecyclerView.ViewHolder
-    inner class DatosViewHolder : RecyclerView.ViewHolder {
-
-        val nombre: TextView
-        val dia: TextView
-        val mes: TextView
-        val ano: TextView
-        val modalidad: TextView
-        val ciclo: TextView
-        // creamos el constructor de la clase ViewHolder que recibe la vista y enlaza los elementos de la interfaz
-        constructor(view: View) : super(view) {
-            // Se enlazan los elementos de la UI mediante ViewBinding.
-            val bindingIAlum = ItemAlumnoBinding.bind(view)
-            this.nombre = bindingIAlum.labelNombre
-            this.dia = bindingIAlum.labeDia
-            this.mes = bindingIAlum.labelMes
-            this.ano = bindingIAlum.labelAnyo
-            this.modalidad = bindingIAlum.labelModalidad
-            this.ciclo = bindingIAlum.labelCiclo
-            // Se crea el listener para el evento onClick. Se lanza un intent con los datos del alumno. Se lanza la actividad VistaActivity.
-            itemView.setOnClickListener {
-                //Toast.makeText(context,datos.grupoClase.toString(), Toast.LENGTH_SHORT).show()
-                val myIntent: Intent = Intent(it?.context, VistaActivity::class.java).apply {
-                    putExtra(EXTRA_ID, mycursor.getString(0).toString())
-                    putExtra(EXTRA_NOMBRE, mycursor.getString(1).toString())
-                    putExtra(EXTRA_DIA, mycursor.getString(2).toString())
-                    putExtra(EXTRA_MES, mycursor.getString(3).toString())
-                    putExtra(EXTRA_ANO, mycursor.getString(4).toString())
-                    putExtra(EXTRA_MODALIDAD, mycursor.getString(5).toString())
-                    putExtra(EXTRA_CICLO, mycursor.getString(6).toString())
-                    putExtra(EXTRA_GRUPOCLASE,mycursor.getString(7).toString())
+    //
+    inner class DatosViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val binding: ItemAlumnoBinding = ItemAlumnoBinding.bind(view)
+        // Inicializar el listener para el evento onClick. Esto es para que no haya
+        // problemas con el click, ya que el RecyclerView no tiene un listener propio.
+        //El ViewHolder reutiliza las vistas y cuando se creaba me daba problemas porque el click solamente marcaba la ultima posicion de la vista
+        // por lo he buscado y he encontrado una solucion: he utilizado un  clic general para cualquier elemento en el RecyclerView,
+        // asi apunta el cursor actualizado y apunta al último elemento, lo que hace que los clicks lleven al mismo resultado.
+        init {
+            view.setOnClickListener {
+                //Para ver que funciona y que se pulsa el elemento
+                Log.d(TAG_APP, "Elemento $adapterPosition clicado.")
+                // Se obtiene la posición del elemento que se ha pulsado.
+                val position: Int = adapterPosition
+                // Se comprueba que la posición sea válida.
+                if (position != RecyclerView.NO_POSITION) {
+                    // Se mueve el cursor a la posición del elemento pulsado.
+                    mycursor.moveToPosition(position)
+                    // Se crea el intent con los datos del alumno.
+                    val intent = Intent(it.context, VistaActivity::class.java).apply {
+                        putExtra(EXTRA_ID, mycursor.getString(0))
+                        putExtra(EXTRA_NOMBRE, mycursor.getString(1))
+                        putExtra(EXTRA_DIA, mycursor.getString(2))
+                        putExtra(EXTRA_MES, mycursor.getString(3))
+                        putExtra(EXTRA_ANO, mycursor.getString(4))
+                        putExtra(EXTRA_MODALIDAD, mycursor.getString(5))
+                        putExtra(EXTRA_CICLO, mycursor.getString(6))
+                        putExtra(EXTRA_GRUPOCLASE,mycursor.getString(7))
+                    }
+                    // Se lanza el intent.
+                    startActivity(it.context, intent, null)
                 }
-                //Lanzamos el intent
-                // it se refiere a la vista (itemView) dentro de la lambda.
-                // context es el contexto de la aplicación de Android
-                it?.context?.startActivity(myIntent)
+            }
+        }
+        //Funcion para enlazar los datos del cursor con los elementos de la UI
+        fun bindData(cursor: Cursor) {
+            binding.apply {
+                labelNombre.text = cursor.getString(1)
+                labeDia.text = cursor.getString(2)
+                labelMes.text = cursor.getString(3)
+                labelAnyo.text = cursor.getString(4)
+                labelModalidad.text = cursor.getString(5)
+                labelCiclo.text = cursor.getString(6)
             }
         }
     }
