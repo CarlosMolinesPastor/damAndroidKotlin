@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FragmentPractice</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="myButton">Mi boton</string>
+    <string name="myCheckBox">Checkbox</string>
+    <string name="myRadioButton1">RadioButton\n</string>
+    <string name="myRadioButton2">RadioButton 2\n</string>
+    <string name="myToggleButton">Toggle</string>
+    <string name="mySwitch">Switch</string>
+    <string name="mostrar">Mostrar\n</string>
+</resources>

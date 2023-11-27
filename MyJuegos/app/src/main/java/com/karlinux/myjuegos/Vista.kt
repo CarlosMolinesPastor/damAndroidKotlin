@@ -30,7 +30,9 @@ class Vista : AppCompatActivity() {
         binding = ActivityVistaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Recuperar los datos del intent
+        // Recuperar los datos del intent, se podria hacer con una funcion en mydataDBOpenHelper
+        // creando una data class de juego para almacenar los datos pasando solo el id de la BD
+        // y recuperar el resto de datos de la BD, pero como son pocos datos los he realizado con intent
         val id = intent.getStringExtra(MyRecyclerViewAdapter.COLUMNA_ID)
         val nombre = intent.getStringExtra(MyRecyclerViewAdapter.COLUMNA_NOMBRE)
         val desarrollador = intent.getStringExtra(MyRecyclerViewAdapter.COLUMNA_DESARROLLADOR)

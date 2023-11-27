@@ -21,6 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/nombre_del_juego"
-            android:textAlignment="center" />
+            android:textAlignment="textStart" />
 
         <EditText
             android:id="@+id/edittxtNombre"
@@ -45,6 +46,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -53,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/desarrollador"
-            android:textAlignment="center" />
+            android:textAlignment="textStart" />
 
         <EditText
             android:id="@+id/editxtDesarrollador"
@@ -69,6 +71,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:orientation="horizontal"
         android:textAlignment="textEnd">
 
@@ -78,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/anyo"
-            android:textAlignment="center" />
+            android:textAlignment="textStart" />
 
         <EditText
             android:id="@+id/edittxtAnyo"
@@ -94,6 +97,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:orientation="horizontal">
 
         <TextView
@@ -102,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/url_imagen"
-            android:textAlignment="center" />
+            android:textAlignment="textStart" />
 
         <EditText
             android:id="@+id/edittxtImagen"
@@ -117,10 +121,10 @@
             android:id="@+id/imageView"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:scaleType="fitCenter"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:contentDescription="@string/todo"
+            android:scaleType="fitCenter"
             tools:src="@tools:sample/avatars" />
 
     </LinearLayout>

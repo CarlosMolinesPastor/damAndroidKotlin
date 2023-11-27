@@ -16,7 +16,6 @@ class MyDataDBOpenHelper (context: Context) :
         val DATABASE_NAME = "datos.db"
         val TABLA_JUEGOS = "juegos"
     }
-
     val COLUMNA_ID = "_id"
     val COLUMNA_NOMBRE = "nombre"
     val COLUMNA_DESARROLLADOR = "desarrollador"
