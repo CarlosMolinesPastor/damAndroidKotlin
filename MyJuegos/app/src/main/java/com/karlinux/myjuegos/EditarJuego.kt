@@ -75,7 +75,9 @@ class EditarJuego : AppCompatActivity() {
     }
     private fun cargarImagenDesdeEditText() {
         val imageUrl = binding.edittxtImagen.text.toString()
+        // Cargar la imagen solo si el campo de texto no está vacío
         if (imageUrl.isNotEmpty()) {
+            // Uso Glide carga la imagen desde la URL en el ImageView
             Glide.with(this) // 'this' se refiere al Fragment
                 .load(imageUrl)
                 .fitCenter()
@@ -84,17 +86,20 @@ class EditarJuego : AppCompatActivity() {
                 .into(binding.imageView)
         } else {
             // Cargar una imagen predeterminada de Android si el campo está vacío
-            binding.imageView.setImageResource(R.drawable.android)
+            binding.imageView.setImageResource(R.drawable.busqueda)
         }
     }
     private fun buscarEnInternet() {
+        // Se obtiene el nombre del juego del EditText
         val nombreJuego = binding.edittxtNombre.text.toString()
+        // Se comprueba si el EditText está vacío
         if (nombreJuego.isEmpty()){
-            Toast.makeText(this, "Faltan datos para buscar en Internet", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "Faltan datos en 'Nombre del Juego' para buscar en Internet", Toast.LENGTH_SHORT)
                 .show()
             return
+            // Si el EditText no está vacío se crea un intent para buscar en Internet
         } else {
-                val intentDefault = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?tbm=isch&q=$nombreJuego game"))
+                val intentDefault = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?tbm=isch&q=$nombreJuego (Videojuego)"))
                 startActivity(intentDefault)
         }
     }

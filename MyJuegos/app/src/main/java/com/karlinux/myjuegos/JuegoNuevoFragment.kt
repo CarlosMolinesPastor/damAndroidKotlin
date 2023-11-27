@@ -33,9 +33,12 @@ class JuegoNuevoFragment : Fragment() {
         datosDBHelper = MyDataDBOpenHelper(requireContext())
 
         binding.btnAnyadir.setOnClickListener() {
+            ocultarTeclado(requireView())
             myAlertDialog()
         }
         binding.btnCancel.setOnClickListener() {
+            ocultarTeclado(requireView())
+            binding.edittxtNombre.requestFocus()
             borrarDatos()
         }
         // Agregar un TextWatcher al EditText para cargar la imagen cuando el texto cambie
@@ -65,11 +68,13 @@ class JuegoNuevoFragment : Fragment() {
     private fun buscarEnInternet() {
         val nombreJuego = binding.edittxtNombre.text.toString()
         if (nombreJuego.isEmpty()){
-            Toast.makeText(context, "Faltan datos para buscar en Internet", Toast.LENGTH_SHORT)
+            ocultarTeclado(binding.edittxtNombre)
+            Toast.makeText(context, "Faltan datos en 'Nombre del Juego' para buscar en Internet", Toast.LENGTH_SHORT)
                 .show()
             return
         } else {
-            val intentDefault = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?tbm=isch&q=$nombreJuego game"))
+            val intentDefault = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?tbm=isch&q=$nombreJuego (Videojuego)"))
+            ocultarTeclado(binding.edittxtNombre)
             startActivity(intentDefault)
         }
     }
@@ -83,6 +88,8 @@ class JuegoNuevoFragment : Fragment() {
             makeText(activity, "Faltan datos a guardar", Toast.LENGTH_SHORT).show()
         } else if (datosDBHelper.juegoYaExiste(nombre, desarrollador)) {
             makeText(activity, "El juego ya existe con ese desarrollador", Toast.LENGTH_SHORT).show()
+            binding.edittxtNombre.text.clear()
+            binding.editxtDesarrollador.text.clear()
         } else {
             datosDBHelper.addJuego(nombre, desarrollador, anyo, imagen)
             makeText(activity, "Datos guardados en la base de datos", Toast.LENGTH_SHORT).show()
@@ -128,7 +135,7 @@ class JuegoNuevoFragment : Fragment() {
     }
     // Declaramos las funciones de los botones del cuadro de alerta
     private val actionButton = { dialog: DialogInterface, which: Int ->
-        makeText(requireContext(), android.R.string.ok, Toast.LENGTH_SHORT).show()
+        //makeText(requireContext(), android.R.string.ok, Toast.LENGTH_SHORT).show()
         //Llamamos a la funcion introducir datos
         introducirDatos()
 
@@ -153,7 +160,7 @@ class JuegoNuevoFragment : Fragment() {
                 .into(binding.imageView)
         } else {
             // Cargar una imagen predeterminada de Android si el campo está vacío
-            binding.imageView.setImageResource(R.drawable.android
+            binding.imageView.setImageResource(R.drawable.busqueda
             )
         }
     }

@@ -1,9 +1,16 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
     <item
         android:id="@+id/menuanyadir"
         android:icon="@android:drawable/ic_menu_add"
         android:title="@string/anyadirMenu"
         app:showAsAction="ifRoom" />
     <!-- Agrega más ítems aquí si es necesario -->
+    <item
+        android:id="@+id/menueliminar"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="@string/editar"
+        app:showAsAction="ifRoom" />
+    </group>
 </menu>

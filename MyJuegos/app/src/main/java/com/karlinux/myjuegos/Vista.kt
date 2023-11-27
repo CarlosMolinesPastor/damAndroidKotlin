@@ -36,6 +36,7 @@ class Vista : AppCompatActivity() {
         val desarrollador = intent.getStringExtra(MyRecyclerViewAdapter.COLUMNA_DESARROLLADOR)
         val anyo = intent.getStringExtra(MyRecyclerViewAdapter.COLUMNA_ANYO)
         val imagen = intent.getStringExtra(MyRecyclerViewAdapter.COLUMNA_IMAGEN)
+        // Convertir la imagen a String
         imagenstring = imagen.toString()
 
         // Asignar los datos a los elementos de la UI
@@ -43,10 +44,11 @@ class Vista : AppCompatActivity() {
         binding.txtNombreV.text = nombre
         binding.txtDesarrolladorV.text = desarrollador
         binding.txtAnyoV.text = anyo
+        // Cargar la imagen con Glide
         Glide.with(this).load(imagen).into(binding.imageV)
 
         // Action Mode desde el layout
-        binding.root.setOnClickListener{
+        binding.root.setOnLongClickListener{
             when (actionMode) {
                 null -> {
                     actionMode = it.startActionMode(actionModeCallback)
@@ -73,12 +75,12 @@ class Vista : AppCompatActivity() {
             return when (item.itemId) {
                 R.id.option01 -> {
                     enviarIntent()
-                    Toast.makeText(applicationContext, R.string.editar, Toast.LENGTH_LONG).show()
+                    //Toast.makeText(applicationContext, R.string.editar, Toast.LENGTH_LONG).show()
                     return true
                 }
                 R.id.option02 -> {
                     eliminarJuego()
-                    Toast.makeText(applicationContext, R.string.borrar, Toast.LENGTH_LONG).show()
+                    //Toast.makeText(applicationContext, R.string.borrar, Toast.LENGTH_LONG).show()
                     return true
                 }
                 else -> false

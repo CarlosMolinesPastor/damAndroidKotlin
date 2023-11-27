@@ -10,7 +10,7 @@ import com.karlinux.myjuegos.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     // ## PRIMERO BINDING
-    private lateinit var binding: ActivityMainBinding;
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
