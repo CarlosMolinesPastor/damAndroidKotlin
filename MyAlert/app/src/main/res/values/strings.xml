@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">MyAlert</string>
+    <string name="alert_dialog">Alert Dialog</string>
+    <string name="alet_dialog_con_seleccion_simple">Alet Dialog con Seleccion Simple</string>
+    <string name="alert_dialogo_con_lista">Alert dialogo con lista</string>
+    <string name="alert_dialog_con_seleccion_multiple">Alert Dialog con Seleccion Multiple</string>
+    <string name="alert_dialog_custom">Alert Dialog Custom</string>
+    <string name="usuario">usuario</string>
+    <string name="password">password</string>
+    <string name="dialogfragment">DialogFragment</string>
+    <string name="date_picker">Date Picker</string>
+    <string name="time_picker">Time Picker</string>
+
+    <string-array name="array_asignaturas">
+            <item>Programación</item>
+            <item>Base de datos</item>
+            <item>Entornos de desarrollo</item>
+            <item>Sistemas</item>
+            <item>FOL</item>
+            <item>Inglés</item>
+            <item>Lenguaje de marcas</item>
+            <item>Programación Multimedia</item>
+            <item>Sistemas de Gestión</item>
+            <item>Programación de Servicios</item>
+            <item>Acceso a Datos</item>
+            <item>Desarrollo de Interfaces</item>
+            <item>Empresa e Iniciativa</item>
+            <item>Proyecto</item>
+            <item>FCT</item>
+        </string-array>
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyAgendaBD</string>
+    <string name="bt_actualizar">Actualizar</string>
+    <string name="bt_consultar">Consultar</string>
+    <string name="bt_eliminar">Eliminar</string>
+    <string name="bt_insertar">Insertar</string>
+    <string name="label_tlf">Label</string>
+    <string name="label_nombre">Nombre</string>
+    <string name="aviso_identificador">Identificador</string>
+    <string name="hint_identificador">Identificador\n</string>
+</resources>
