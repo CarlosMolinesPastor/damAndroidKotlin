@@ -1,11 +1,15 @@
 package com.karlinux.myjuegos
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.karlinux.myjuegos.databinding.ActivityEditarJuegoBinding
@@ -18,6 +22,12 @@ class EditarJuego : AppCompatActivity() {
         super.onCreate(savedInstanceState)
     binding = ActivityEditarJuegoBinding.inflate(layoutInflater)
     setContentView(binding.root)
+
+        // Obtener la actividad que contiene esta actividad
+        val activity = this as AppCompatActivity
+
+        // Cambiar el color de la barra de herramientas
+        activity.supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#f5aa0a")))
 
         // Instanciamos el objeto MyDBOpenHelper.
         datosDBHelper = MyDataDBOpenHelper(this)
@@ -38,14 +48,26 @@ class EditarJuego : AppCompatActivity() {
             val nuevoDesarrollador = binding.editxtDesarrollador.text.toString()
             val nuevoAnyo = binding.edittxtAnyo.text.toString()
             val nuevaImagen = binding.edittxtImagen.text.toString()
-            datosDBHelper.updateJuego(id,nuevoNombre, nuevoDesarrollador, nuevoAnyo, nuevaImagen)
-            // Crear un Intent para volver al MainActivity pero para ver la lista de juegos
-            val intent = Intent(this@EditarJuego, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-            //Señal para pasarsela al MainActivity para indicarle que venimos de aqui
-            intent.putExtra("verLista", true)
-            startActivity(intent)
-            finish()
+            if (datosDBHelper.juegoYaExiste(nuevoNombre, nuevoDesarrollador)) {
+                ocultarTeclado(it)
+                Toast.makeText(this, "El juego ya existe", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            } else {
+                datosDBHelper.updateJuego(
+                    id,
+                    nuevoNombre,
+                    nuevoDesarrollador,
+                    nuevoAnyo,
+                    nuevaImagen
+                )
+                // Crear un Intent para volver al MainActivity pero para ver la lista de juegos
+                val intent = Intent(this@EditarJuego, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                //Señal para pasarsela al MainActivity para indicarle que venimos de aqui
+                intent.putExtra("verLista", true)
+                startActivity(intent)
+                finish()
+            }
         }
         binding.btnCancel.setOnClickListener {
             finish()
@@ -102,5 +124,9 @@ class EditarJuego : AppCompatActivity() {
                 val intentDefault = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?tbm=isch&q=$nombreJuego (Videojuego)"))
                 startActivity(intentDefault)
         }
+    }
+    fun ocultarTeclado(view: View) {
+        val inputMethodManager = this.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

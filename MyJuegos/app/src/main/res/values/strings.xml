@@ -13,4 +13,8 @@
     <string name="cancelar">Cancelar</string>
     <string name="anyadirMenu">Añadir</string>
     <string name="edicion">Edicion</string>
+    <string name="nombre_hint">Nombre del juego</string>
+    <string name="desarrollador_hint">Desarrollador</string>
+    <string name="anyo_hint">Año</string>
+    <string name="url_de_la_imagen_hint">Url de la imagen</string>
 </resources>

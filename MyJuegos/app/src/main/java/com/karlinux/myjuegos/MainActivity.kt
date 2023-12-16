@@ -1,6 +1,8 @@
 package com.karlinux.myjuegos
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         // Se crea variable extras para obtener los datos del intent
         val extras = intent.extras
         // Se comprueba si el intent contiene el valor de "fromEditarJuego" desde la señal que hemos
-        // emitido en EditarJuego.kt
+        // emitido en EditarJuego.kt para que nos eve a ListaJuegoFragment
         if (extras != null && extras.containsKey("verLista")) {
             // Cambiar al fragmento ListaJuegoFragment
             viewPager2.setCurrentItem(1, false) // 1 representa la posición del fragmento ListaJuegoFragment
@@ -42,20 +44,5 @@ class MainActivity : AppCompatActivity() {
             intent.removeExtra("verLista")
         }
     }
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menuanyadir -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-            // Maneja otras acciones del menú si es necesario
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }

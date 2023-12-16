@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="@string/nombre_del_juego"
+            android:hint="@string/nombre_hint"
             android:inputType="text"
             android:textAlignment="textStart" />
     </LinearLayout>
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="@string/desarrollador"
+            android:hint="@string/desarrollador_hint"
             android:inputType="text"
             android:textAlignment="textStart" />
     </LinearLayout>
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="@string/anyo"
+            android:hint="@string/anyo_hint"
             android:inputType="number"
             android:textAlignment="textStart" />
     </LinearLayout>
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="@string/url_imagen"
+            android:hint="@string/url_de_la_imagen_hint"
             android:inputType="text" />
 
         <ImageView

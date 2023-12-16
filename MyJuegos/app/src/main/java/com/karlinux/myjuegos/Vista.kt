@@ -1,6 +1,8 @@
 package com.karlinux.myjuegos
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ActionMode
@@ -29,6 +31,12 @@ class Vista : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityVistaBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Obtener la actividad que contiene esta actividad
+        val activity = this as AppCompatActivity
+
+        // Cambiar el color de la barra de herramientas
+        activity.supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#0a6ef5")))
 
         // Recuperar los datos del intent, se podria hacer con una funcion en mydataDBOpenHelper
         // creando una data class de juego para almacenar los datos pasando solo el id de la BD

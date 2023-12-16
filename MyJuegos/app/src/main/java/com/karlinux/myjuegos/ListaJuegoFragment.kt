@@ -1,13 +1,20 @@
 package com.karlinux.myjuegos
 
+import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.ActionMode
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.karlinux.myjuegos.databinding.FragmentListaJuegoBinding
@@ -27,6 +34,12 @@ class ListaJuegoFragment : Fragment()  {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        // Obtener la actividad que contiene este fragmento
+        val activity = requireActivity() as AppCompatActivity
+        // Cambiar el color de la barra de herramientas
+        activity.supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#0acef5")))
+
         // Inflamos el layout para este fragmento.
         binding = FragmentListaJuegoBinding.inflate(inflater)
         datosDBHelper = MyDataDBOpenHelper(requireContext())
@@ -36,17 +49,14 @@ class ListaJuegoFragment : Fragment()  {
 
         return binding.root
     }
-
     //Cuando se reanuda la actividad se vuelve a cargar el recycler view
     override fun onResume() {
         setUpRecyclerView()
         super.onResume()
 
     }
-
     //Funcion para leer el fichero y mostrarlo en el recycler view
     private fun setUpRecyclerView() {
-
         //Se crea el cursor oportuno
         db = datosDBHelper.readableDatabase
         val cursor: Cursor = db.rawQuery(
@@ -70,5 +80,6 @@ class ListaJuegoFragment : Fragment()  {
         Log.d("onDestroy", "Cerramos la conexión")
         db.close()
     }
+
 
 }

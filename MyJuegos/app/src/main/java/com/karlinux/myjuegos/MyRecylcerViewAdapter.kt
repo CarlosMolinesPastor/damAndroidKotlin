@@ -59,6 +59,7 @@ class MyRecyclerViewAdapter(context: Context, cursor: Cursor)
     //
     inner class DatosViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding: ItemBinding = ItemBinding.bind(view)
+        var currentPosition: Int = 0 //Almacena la posicion actual del cursor
         // Inicializar el listener para el evento onClick. Esto es para que no haya
         // problemas con el click, ya que el RecyclerView no tiene un listener propio.
         //El ViewHolder reutiliza las vistas y cuando se creaba me daba problemas porque el click solamente marcaba la ultima posicion de la vista
@@ -97,10 +98,10 @@ class MyRecyclerViewAdapter(context: Context, cursor: Cursor)
                     .setCancelable(false)
                     .setPositiveButton("Sí") { dialog, id ->
                         val datosDBHelper: MyDataDBOpenHelper = MyDataDBOpenHelper(context)
+                        mycursor.moveToPosition(currentPosition)
                         datosDBHelper.delJuego(mycursor.getInt(0))
                         Toast.makeText(context, "Juego eliminado", Toast.LENGTH_SHORT).show()
                         notifyDataSetChanged()
-                        //context.startActivity(Intent(context, MainActivity::class.java))
                         volverListaJuegos()
                     }
                     .setNegativeButton("No") { dialog, id ->
@@ -113,6 +114,7 @@ class MyRecyclerViewAdapter(context: Context, cursor: Cursor)
         }
         //Funcion para enlazar los datos del cursor con los elementos de la UI
         fun bindData(cursor: Cursor) {
+            currentPosition = cursor.position //Almacena la posicion actual del cursor
             binding.apply {
                 labelNombre.text = cursor.getString(1)
                 labelDesarrollador.text = cursor.getString(2)

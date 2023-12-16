@@ -2,12 +2,20 @@ package com.karlinux.myjuegos
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -26,6 +34,14 @@ class JuegoNuevoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle? ): View? {
+        //Menu, primero para que se muestre
+        setHasOptionsMenu(true)
+
+        // Obtener la actividad que contiene este fragmento
+        val activity = requireActivity() as AppCompatActivity
+        // Cambiar el color de la barra de herramientas
+        activity.supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.parseColor("#0acef5")))
+
         // Inflate the layout for this fragment
         binding = FragmentJuegoNuevoBinding.inflate(inflater)
 
@@ -39,7 +55,6 @@ class JuegoNuevoFragment : Fragment() {
         binding.btnCancel.setOnClickListener() {
             ocultarTeclado(requireView())
             binding.edittxtNombre.requestFocus()
-            borrarDatos()
         }
         // Agregar un TextWatcher al EditText para cargar la imagen cuando el texto cambie
         binding.edittxtImagen.addTextChangedListener(object : TextWatcher {
@@ -73,6 +88,7 @@ class JuegoNuevoFragment : Fragment() {
                 .show()
             return
         } else {
+            // Se crea un intent para buscar en Internet con el nombre del juego y (Videojuego) para que busque imagenes de videojuegos
             val intentDefault = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?tbm=isch&q=$nombreJuego (Videojuego)"))
             ocultarTeclado(binding.edittxtNombre)
             startActivity(intentDefault)
@@ -162,6 +178,28 @@ class JuegoNuevoFragment : Fragment() {
             // Cargar una imagen predeterminada de Android si el campo está vacío
             binding.imageView.setImageResource(R.drawable.busqueda
             )
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menuanyadir -> {
+                ocultarTeclado(requireView())
+                myAlertDialog()
+                true
+            }
+            R.id.menueliminar -> {
+                ocultarTeclado(requireView())
+                binding.edittxtNombre.requestFocus()
+                borrarDatos()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
