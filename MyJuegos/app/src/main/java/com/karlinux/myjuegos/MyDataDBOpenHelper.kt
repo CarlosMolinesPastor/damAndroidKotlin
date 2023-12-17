@@ -100,10 +100,11 @@ class MyDataDBOpenHelper (context: Context) :
         db.close()
     }
 
-    //funcion para cmprobar que el juego no existe ya en la base de
+    //funcion para comprobar que el juego no existe ya en la base de
     // datos y no se repita con el desarrollador
     fun juegoYaExiste(nombre: String, desarrollador: String): Boolean {
         val db = this.readableDatabase
+        // Se crea un cursor para obtener el id del juego.
         val cursor = db.query(
             TABLA_JUEGOS,
             arrayOf(COLUMNA_ID),
@@ -113,9 +114,11 @@ class MyDataDBOpenHelper (context: Context) :
             null,
             null
         )
+        // Se comprueba si el cursor tiene algún dato.
         val existe = cursor.count > 0
         cursor.close()
         db.close()
+        // Se devuelve el resultado de la comprobación.
         return existe
     }
 }

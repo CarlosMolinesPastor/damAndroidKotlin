@@ -56,6 +56,7 @@ class MyRecyclerViewAdapter(context: Context, cursor: Cursor)
     override fun getItemCount(): Int {
         return mycursor.count
     }
+
     //
     inner class DatosViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding: ItemBinding = ItemBinding.bind(view)

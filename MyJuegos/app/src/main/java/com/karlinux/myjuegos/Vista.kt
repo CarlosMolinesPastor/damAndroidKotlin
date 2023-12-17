@@ -72,6 +72,7 @@ class Vista : AppCompatActivity() {
     }
     // Action Mode desde el código
     private val actionModeCallback = object : ActionMode.Callback {
+        // Inflar el menú contextual
         override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
             val inflater = menuInflater
             inflater.inflate(R.menu.action_mode, menu)
@@ -81,16 +82,17 @@ class Vista : AppCompatActivity() {
                 Boolean {
             return false
         }
+        // Definir las acciones del menú contextual
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             return when (item.itemId) {
+                // Editar
                 R.id.option01 -> {
                     enviarIntent()
-                    //Toast.makeText(applicationContext, R.string.editar, Toast.LENGTH_LONG).show()
                     return true
                 }
+                // Borrar
                 R.id.option02 -> {
                     eliminarJuego()
-                    //Toast.makeText(applicationContext, R.string.borrar, Toast.LENGTH_LONG).show()
                     return true
                 }
                 else -> false
@@ -100,6 +102,8 @@ class Vista : AppCompatActivity() {
             actionMode = null
         }
     }
+    // Funciones para el menú contextual
+    // Enviar los datos a EditarJuego
     fun enviarIntent(){
         val intent = Intent(this, EditarJuego::class.java)
         intent.putExtra(COLUMNA_ID, binding.txtId.text.toString().toInt())
@@ -109,6 +113,7 @@ class Vista : AppCompatActivity() {
         intent.putExtra(COLUMNA_IMAGEN, imagenstring)
         startActivity(intent)
     }
+    // Eliminar el juego de la BD
     fun eliminarJuego(){
         val builder = AlertDialog.Builder(this)
         builder.setMessage("¿Está seguro que desea eliminar el juego de la Base de Datos?")
@@ -117,7 +122,7 @@ class Vista : AppCompatActivity() {
                 val datosDBHelper: MyDataDBOpenHelper = MyDataDBOpenHelper(this)
                 datosDBHelper.delJuego(binding.txtId.text.toString().toInt())
                 Toast.makeText(this, "Juego eliminado", Toast.LENGTH_SHORT).show()
-                //Creamos un intent para volver al MainActivity
+                //Creamos un intent para volver al MainActivity e indicarle que queremos ver la lista
                 val intent = Intent(this, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 //Señal para pasarsela al MainActivity para indicarle que venimos de aqui
@@ -125,6 +130,7 @@ class Vista : AppCompatActivity() {
                 intent.putExtra("verLista", true)
                 startActivity(intent)
             }
+                // Si se pulsa no se hace nada
             .setNegativeButton("No") { dialog, id ->
                 dialog.cancel()
             }
